@@ -1,0 +1,68 @@
+{
+  "project_info": {
+    "project_number": "695447882626",
+    "project_id": "ma5zan13",
+    "storage_bucket": "ma5zan13.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:695447882626:android:de1dd86506035e76cfdd9b",
+        "android_client_info": {
+          "package_name": "com.ma5zan.flutter_user_ecom"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "695447882626-0hvlpi6dk68bfqj3ujvooqsoocsknk3s.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDvcoxVni5BFvJV764Mk8BBexWFE2WRvhE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "695447882626-0hvlpi6dk68bfqj3ujvooqsoocsknk3s.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:695447882626:android:bfb549007c39eb54cfdd9b",
+        "android_client_info": {
+          "package_name": "com.makzan.eco"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "695447882626-0hvlpi6dk68bfqj3ujvooqsoocsknk3s.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDvcoxVni5BFvJV764Mk8BBexWFE2WRvhE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "695447882626-0hvlpi6dk68bfqj3ujvooqsoocsknk3s.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
