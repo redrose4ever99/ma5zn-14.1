@@ -39,6 +39,7 @@ import 'package:com.makzan.eco/utill/app_constants.dart';
 import 'package:com.makzan.eco/view/screen/splash/splash_screen.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:provider/provider.dart';
+import 'package:sizer/sizer.dart';
 import 'di_container.dart' as di;
 import 'helper/custom_delegate.dart';
 import 'localization/app_localization.dart';
@@ -139,35 +140,36 @@ class MyApp extends StatelessWidget {
   const MyApp({Key? key, required this.orderId}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
-    List<Locale> locals = [];
-    for (var language in AppConstants.languages) {
-      locals.add(Locale(language.languageCode!, language.countryCode));
-    }
-    return MaterialApp(
-      title: AppConstants.appName,
-      navigatorKey: navigatorKey,
-      debugShowCheckedModeBanner: false,
-      theme: Provider.of<ThemeProvider>(context).darkTheme ? dark : light,
-      locale: Provider.of<LocalizationProvider>(context).locale,
-      localizationsDelegates: [
-        AppLocalization.delegate,
-        GlobalMaterialLocalizations.delegate,
-        GlobalWidgetsLocalizations.delegate,
-        GlobalCupertinoLocalizations.delegate,
-        FallbackLocalizationDelegate()
-      ],
-      builder: (context, child) {
-        return MediaQuery(
-            data: MediaQuery.of(context).copyWith(textScaleFactor: 1),
-            child: child!);
-      },
-      supportedLocales: locals,
-      home: orderId == null
-          ? const SplashScreen()
-          : OrderDetailsScreen(orderId: orderId, isNotification: true),
-    );
-  }
+  Widget build(BuildContext context) =>
+      Sizer(builder: (context, orientation, deviceType) {
+        List<Locale> locals = [];
+        for (var language in AppConstants.languages) {
+          locals.add(Locale(language.languageCode!, language.countryCode));
+        }
+        return MaterialApp(
+          title: AppConstants.appName,
+          navigatorKey: navigatorKey,
+          debugShowCheckedModeBanner: false,
+          theme: Provider.of<ThemeProvider>(context).darkTheme ? dark : light,
+          locale: Provider.of<LocalizationProvider>(context).locale,
+          localizationsDelegates: [
+            AppLocalization.delegate,
+            GlobalMaterialLocalizations.delegate,
+            GlobalWidgetsLocalizations.delegate,
+            GlobalCupertinoLocalizations.delegate,
+            FallbackLocalizationDelegate()
+          ],
+          builder: (context, child) {
+            return MediaQuery(
+                data: MediaQuery.of(context).copyWith(textScaleFactor: 1),
+                child: child!);
+          },
+          supportedLocales: locals,
+          home: orderId == null
+              ? const SplashScreen()
+              : OrderDetailsScreen(orderId: orderId, isNotification: true),
+        );
+      });
 }
 
 class Get {

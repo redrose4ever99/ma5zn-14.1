@@ -68,6 +68,7 @@ dependencies:
   shared_preferences: ^2.0.5
   shimmer: ^2.0.0-nullsafety.0
   sign_in_with_apple: ^5.0.0
+  sizer: ^2.0.15
   substring_highlight: ^1.0.33
   url_launcher: ^6.0.2
   webview_flutter: ^3.0.0
@@ -88,9 +89,9 @@ flutter:
   fonts:
     - family: SF-Pro-Rounded-Regular
       fonts:
-        - asset: assets/fonts/ubuntu/SF-Pro-Rounded-Regular.ttf
+        - asset: assets/fonts/ave/AvenirArabic-Light.otf
           weight: 400
-        - asset: assets/fonts/ubuntu/SF-Pro-Rounded-Regular.ttf
+        - asset: assets/fonts/ave/AvenirArabic-Medium.otf
           weight: 500
-        - asset: assets/fonts/ubuntu/SF-Pro-Rounded-Regular.ttf
+        - asset: assets/fonts/ave/AvenirArabic-Heavy.otf
           weight: 600

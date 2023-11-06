@@ -5,8 +5,8 @@ class AppConstants {
   static const String appName = 'Ma5zn';
   static const String slogan = 'E-Commerce Marketplace';
   static const String appVersion = '14.1';
-  static const String baseUrl = 'https://admin.ma5znsyria.com';
-  //static const String baseUrl = 'https://6valley.6amtech.com';
+// static const String baseUrl = 'https://admin.ma5znsyria.com';
+  static const String baseUrl = 'https://6valley.6amtech.com';
   static const String userId = 'userId';
   static const String name = 'name';
   static const String categoriesUri = '/api/v1/categories?guest_id=1';

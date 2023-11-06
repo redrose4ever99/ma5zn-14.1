@@ -953,11 +953,15 @@ class CartScreenState extends State<CartScreen> {
                         ),
                       )
                     : const Expanded(
-                        child: NoInternetOrDataScreen(
-                        icon: Images.emptyCart,
-                        icCart: true,
-                        isNoInternet: false,
-                        message: 'no_product_in_cart',
+                        child: Column(
+                        children: [
+                          NoInternetOrDataScreen(
+                            icon: Images.emptyCart,
+                            icCart: true,
+                            isNoInternet: false,
+                            message: 'no_product_in_cart',
+                          ),
+                        ],
                       )),
           ]),
         );

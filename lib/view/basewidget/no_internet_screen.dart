@@ -1,3 +1,4 @@
+import 'package:com.makzan.eco/utill/size.dart';
 import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
 import 'package:com.makzan.eco/localization/language_constrants.dart';
@@ -38,12 +39,14 @@ class NoInternetOrDataScreen extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Image.asset(
-                      isNoInternet
-                          ? Images.noInternet
-                          : icon != null
-                              ? icon!
-                              : Images.noData,
-                      width: 75),
+                    isNoInternet
+                        ? Images.noInternet
+                        : icon != null
+                            ? icon!
+                            : Images.noData,
+                    width: width(60),
+                    height: width(60),
+                  ),
                   if (isNoInternet)
                     Text(getTranslated('OPPS', context)!,
                         style: titilliumBold.copyWith(

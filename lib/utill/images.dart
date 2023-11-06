@@ -58,9 +58,10 @@ class Images {
   static const String uploadImage = 'assets/images/upload_image.png';
   static const String star = 'assets/images/star.png';
   static const String flashDeal = 'assets/images/flash_deal.png';
-  static const String sevenDayEasyReturn = 'assets/images/seven_day_return.png';
+  static const String rialableDelivery = 'assets/images/rialable_Delivery.png';
   static const String safePayment = 'assets/images/safe_payment.png';
-  static const String hundredParAuthentic = 'assets/images/authentic.png';
+  static const String freeReturn = 'assets/images/free_return.png';
+  static const String saveShop = 'assets/images/saveshop.png';
   static const String delete = 'assets/images/delete.png';
   static const String address = 'assets/images/address.png';
   static const String dropdown = 'assets/images/dropdown.png';

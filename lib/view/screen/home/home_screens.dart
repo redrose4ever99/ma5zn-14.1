@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 import 'package:com.makzan.eco/helper/product_type.dart';
 import 'package:com.makzan.eco/localization/language_constrants.dart';
 import 'package:com.makzan.eco/main.dart';
@@ -111,7 +112,7 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    double height = MediaQuery.of(context).size.height;
+    double ScreenHeight = MediaQuery.of(context).size.height;
     List<String?> types = [
       getTranslated('new_arrival', context),
       getTranslated('top_product', context),
@@ -137,11 +138,11 @@ class _HomePageState extends State<HomePage> {
                     centerTitle: true,
                     title: Image.asset(Images.logoImage,
                         height: 0.076 * MediaQuery.of(context).size.height),
-                    // background: Image.network(
-                    //     'https://media.cloudbooklet.com/uploads/2023/06/21111428/luma-ai-1-750x422.jpg',
-                    //     fit: BoxFit.cover),
+                    background: Image.network(
+                        'https://media.cloudbooklet.com/uploads/2023/06/21111428/luma-ai-1-750x422.jpg',
+                        fit: BoxFit.cover),
                   ),
-                  expandedHeight: 0.141 * height,
+                  expandedHeight: 0.141 * ScreenHeight,
                   backgroundColor: Theme.of(context).scaffoldBackgroundColor,
                 ),
                 SliverAppBar(
@@ -190,6 +191,22 @@ class _HomePageState extends State<HomePage> {
                       const BannersView(),
                       const SizedBox(height: Dimensions.homePagePadding),
 
+                      // Category
+                      Padding(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: Dimensions.paddingSizeExtraExtraSmall,
+                            vertical: Dimensions.paddingSizeExtraSmall),
+                        child: TitleRow(
+                            title: getTranslated('all_category', context),
+                            onTap: () => Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (_) =>
+                                        const AllCategoryScreen()))),
+                      ),
+                      const SizedBox(height: Dimensions.paddingSizeSmall),
+                      const CategoryView(isHomePage: true),
+                      const SizedBox(height: Dimensions.paddingSizeSmall),
                       // Flash Deal
                       Consumer<FlashDealProvider>(
                         builder: (context, megaDeal, child) {
@@ -257,22 +274,6 @@ class _HomePageState extends State<HomePage> {
                               : const FlashDealShimmer();
                         },
                       ),
-
-                      // Category
-                      Padding(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: Dimensions.paddingSizeExtraExtraSmall,
-                            vertical: Dimensions.paddingSizeExtraSmall),
-                        child: TitleRow(
-                            title: getTranslated('CATEGORY', context),
-                            onTap: () => Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (_) =>
-                                        const AllCategoryScreen()))),
-                      ),
-                      const SizedBox(height: Dimensions.paddingSizeSmall),
-                      const CategoryView(isHomePage: true),
 
                       // Featured Deal
 
@@ -443,7 +444,7 @@ class _HomePageState extends State<HomePage> {
                               padding: EdgeInsets.only(
                                   bottom: Dimensions.homePagePadding),
                               child: SizedBox(
-                                  height: 165,
+                                  height: 180,
                                   child: TopSellerView(isHomePage: true))),
 
                       const Padding(
