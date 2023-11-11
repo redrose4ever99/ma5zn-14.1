@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class SVG extends StatelessWidget {
-  const SVG(
+  const SVG(String image,
       {super.key,
       required this.path,
       required this.width,

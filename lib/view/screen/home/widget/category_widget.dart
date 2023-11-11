@@ -54,7 +54,7 @@ class CategoryWidget extends StatelessWidget {
         const SizedBox(height: Dimensions.paddingSizeExtraSmall),
         Center(
           child: SizedBox(
-            width: 70,
+            width: width(70),
             child: Text(category.name!,
                 textAlign: TextAlign.center,
                 maxLines: 2,

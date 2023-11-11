@@ -1,5 +1,9 @@
 {
   "ma5zn": "مخزن",
+  "choose_language_for":"Select your Language",
+  "choose_language_for1":"حدد اللغة المناسبة لك",
+  "continu_as_gust":"الدخول دون تسجيل",
+  "Welcome_to_mz5an":"ياهلا بيك بمخزن",
   "on_boarding_title_one": "مرحبا بك في",
   "on_boarding_title_two": "عملية دفع سهلة وآمنة",
   "on_boarding_title_three": "أسرع توصيل",
@@ -35,7 +39,7 @@
   "GET_STARTED": "البدء",
   "sign_in": "تسجيل الدخول",
   "LOGIN": "تسجيل الدخول",
-  "sign_up": "سجل",
+  "sign_up": "تسحبل جديد",
   "remember": "تذكر",
   "forget_password": "نسيت كلمة المرور",
   "OR": "أو",

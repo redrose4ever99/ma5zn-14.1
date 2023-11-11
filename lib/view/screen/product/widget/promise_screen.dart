@@ -28,8 +28,8 @@ class PromiseScreen extends StatelessWidget {
                     child: Center(
                         child: Image.asset(
                       Images.rialableDelivery,
-                      width: 60,
-                      height: 60,
+                      width: 26,
+                      height: 18,
                     ))),
                 Padding(
                   padding:
@@ -90,7 +90,12 @@ class PromiseScreen extends StatelessWidget {
                   decoration: BoxDecoration(
                       color: background1,
                       borderRadius: BorderRadius.circular(50)),
-                  child: Center(child: Image.asset(Images.saveShop)),
+                  child: Center(
+                      child: Image.asset(
+                    Images.saveShop,
+                    width: 26,
+                    height: 19,
+                  )),
                 ),
                 Padding(
                   padding:
@@ -117,7 +122,12 @@ class PromiseScreen extends StatelessWidget {
                   decoration: BoxDecoration(
                       color: background1,
                       borderRadius: BorderRadius.circular(50)),
-                  child: Center(child: Image.asset(Images.freeReturn)),
+                  child: Center(
+                      child: Image.asset(
+                    Images.freeReturn,
+                    width: 26,
+                    height: 19,
+                  )),
                 ),
                 Padding(
                   padding:

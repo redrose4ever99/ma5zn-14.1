@@ -574,7 +574,7 @@ class TitleButton extends StatelessWidget {
         width: 25,
         height: 25,
         fit: BoxFit.fill,
-        color: Theme.of(context).primaryColor.withOpacity(.6),
+        color: Theme.of(context).primaryColor.withOpacity(.7),
       ),
       title: Text(title!,
           style: titilliumRegular.copyWith(fontSize: Dimensions.fontSizeLarge)),

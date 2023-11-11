@@ -1,4 +1,4 @@
-
+import 'package:com.makzan.eco/view/screen/category/all_category_screen.dart';
 import 'package:com.makzan.eco/view/screen/notification/notification_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:com.makzan.eco/helper/network_info.dart';
@@ -6,7 +6,7 @@ import 'package:com.makzan.eco/provider/splash_provider.dart';
 import 'package:com.makzan.eco/utill/custom_themes.dart';
 import 'package:com.makzan.eco/utill/dimensions.dart';
 import 'package:com.makzan.eco/view/basewidget/custom_exit_card.dart';
-import 'package:com.makzan.eco/view/screen/chat/inbox_screen.dart';
+
 import 'package:com.makzan.eco/localization/language_constrants.dart';
 import 'package:com.makzan.eco/utill/images.dart';
 import 'package:com.makzan.eco/view/screen/home/aster_theme_home_page.dart';
@@ -64,9 +64,9 @@ class DashBoardScreenState extends State<DashBoardScreen> {
                   ? const AsterThemeHomePage()
                   : const FashionThemeHomePage()),
       NavigationModel(
-          name: 'inbox',
-          icon: Images.messageImage,
-          screen: const InboxScreen(isBackButtonExist: false)),
+          name: 'all_category',
+          icon: Images.category,
+          screen: const AllCategoryScreen()),
       NavigationModel(
           name: 'more', icon: Images.moreImage, screen: const MoreScreen()),
     ];
@@ -179,7 +179,7 @@ class CustomMenuItem extends StatelessWidget {
                   children: [
                     Image.asset(
                       icon,
-                      color: Theme.of(context).highlightColor,
+                      color: Colors.white,
                       width: (isSelected)
                           ? Dimensions.menuIconSize + 7
                           : Dimensions.menuIconSize,
@@ -192,7 +192,7 @@ class CustomMenuItem extends StatelessWidget {
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
                           style: textRegular.copyWith(
-                            color: Theme.of(context).highlightColor,
+                            color: Colors.white,
                             fontWeight: FontWeight.w800,
                           )),
                     if (isSelected)

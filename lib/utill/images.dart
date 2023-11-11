@@ -10,6 +10,7 @@ class Images {
   static const String logoWithNameImageWhite =
       'assets/images/logo_with_name_white.png';
   static const String messageImage = 'assets/images/inbox.png';
+  static const String refund = 'assets/icons/refund.svg';
   static const String moreImage = 'assets/images/more.png';
   static const String shoppingImage = 'assets/images/order.png';
   static const String wishImage = 'assets/images/wish.png';
@@ -30,7 +31,7 @@ class Images {
       'assets/images/notification_filled.png';
   static const String notification = 'assets/images/notification.png';
   static const String offers = 'assets/images/offers.png';
-  static const String preference = 'assets/images/preference.png';
+  static const String preference = 'assets/images/support.png';
   static const String privacyPolicy = 'assets/images/privacy_policy.png';
   static const String settings = 'assets/images/settings.png';
   static const String backgrounded = 'assets/images/back.png';

@@ -4,14 +4,14 @@ import 'package:com.makzan.eco/utill/dimensions.dart';
 import 'package:provider/provider.dart';
 
 const onBoardtitle = TextStyle(
-  fontFamily: 'Ubuntu',
+  fontFamily: 'SF-Pro-Rounded-Regular',
   fontSize: 20,
   color: Color(0xFF028A81),
   fontWeight: FontWeight.w700,
 );
 
 const onBoarddescrip = TextStyle(
-  fontFamily: 'Ubuntu',
+  fontFamily: 'SF-Pro-Rounded-Regular',
   color: Color(0xFFA5A5A5),
   fontWeight: FontWeight.w700,
 );
