@@ -1,3 +1,4 @@
+import 'package:com.makzan.eco/utill/size.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -235,64 +236,82 @@ class SignInWidgetState extends State<SignInWidget> {
                 ),
               ],
             ),
-            Container(
-              margin: const EdgeInsets.only(bottom: 20, top: 30),
-              child: Provider.of<AuthProvider>(context).isLoading
-                  ? Center(
-                      child: CircularProgressIndicator(
-                        valueColor: AlwaysStoppedAnimation<Color>(
-                          Theme.of(context).primaryColor,
+            Padding(
+              padding: EdgeInsets.only(left: width(60), right: width(60)),
+              child: Container(
+                margin: const EdgeInsets.only(bottom: 20, top: 30),
+                child: Provider.of<AuthProvider>(context).isLoading
+                    ? Center(
+                        child: CircularProgressIndicator(
+                          valueColor: AlwaysStoppedAnimation<Color>(
+                            Theme.of(context).primaryColor,
+                          ),
                         ),
-                      ),
-                    )
-                  : Hero(
-                      tag: "onTap",
-                      child: CustomButton(
-                          onTap: loginUser,
-                          buttonText: getTranslated('login', context))),
+                      )
+                    : Hero(
+                        tag: "onTap",
+                        child: CustomButton(
+                            onTap: loginUser,
+                            buttonText: getTranslated('LOGIN', context))),
+              ),
             ),
             const SizedBox(width: Dimensions.paddingSizeDefault),
+            Center(
+              child: Text(getTranslated('signiture_log_hint', context)!),
+            ),
+            const SizedBox(height: Dimensions.paddingSizeEight),
+            Center(
+              child: GestureDetector(
+                onTap: () {},
+                child: Image.asset(Images.fingerprint,
+                    width: width(49), height: height(54)),
+              ),
+            ),
+
+            //segniture_log_hint
+
+            const SizedBox(height: Dimensions.paddingSizeDefault),
             const SocialLoginWidget(),
-            Consumer<AuthProvider>(builder: (context, authProvider, _) {
-              return GestureDetector(
-                onTap: () {
-                  if (kDebugMode) {
-                    print("===Guest ID===${authProvider.getGuestToken()}====>");
-                  }
-                  if (!authProvider.isLoading) {
-                    Provider.of<AuthProvider>(context, listen: false)
-                        .getGuestIdUrl();
-                    Navigator.pushAndRemoveUntil(
-                        context,
-                        MaterialPageRoute(
-                            builder: (_) => const DashBoardScreen()),
-                        (route) => false);
-                  }
-                },
-                child: Container(
-                  width: double.infinity,
-                  height: 40,
-                  alignment: Alignment.center,
-                  decoration: BoxDecoration(
-                    color: Colors.transparent,
-                    borderRadius: BorderRadius.circular(6),
-                  ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(getTranslated('continue_as', context)!,
-                          style: titleRegular.copyWith(
-                              color: ColorResources.getHint(context))),
-                      const SizedBox(
-                        width: Dimensions.paddingSizeExtraSmall,
-                      ),
-                      Text(getTranslated('guest', context)!,
-                          style: titleHeader),
-                    ],
-                  ),
-                ),
-              );
-            }),
+            // Consumer<AuthProvider>(builder: (context, authProvider, _) {
+            //   return GestureDetector(
+            //     onTap: () {
+            //       if (kDebugMode) {
+            //         print("===Guest ID===${authProvider.getGuestToken()}====>");
+            //       }
+            //       if (!authProvider.isLoading) {
+            //         Provider.of<AuthProvider>(context, listen: false)
+            //             .getGuestIdUrl();
+            //         Navigator.pushAndRemoveUntil(
+            //             context,
+            //             MaterialPageRoute(
+            //                 builder: (_) => const DashBoardScreen()),
+            //             (route) => false);
+            //       }
+            //     },
+            //     child: Container(
+            //       width: double.infinity,
+            //       height: 40,
+            //       alignment: Alignment.center,
+            //       decoration: BoxDecoration(
+            //         color: Colors.transparent,
+            //         borderRadius: BorderRadius.circular(6),
+            //       ),
+            //       child: Row(
+            //         mainAxisAlignment: MainAxisAlignment.center,
+            //         children: [
+            //           Text(getTranslated('continue_as', context)!,
+            //               style: titleRegular.copyWith(
+            //                   color: ColorResources.getHint(context))),
+            //           const SizedBox(
+            //             width: Dimensions.paddingSizeExtraSmall,
+            //           ),
+            //           Text(getTranslated('guest', context)!,
+            //               style: titleHeader),
+            //         ],
+            //       ),
+            //     ),
+            //   );
+            // }),
           ],
         ),
       ),

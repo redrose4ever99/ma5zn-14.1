@@ -6,14 +6,11 @@ import 'package:flutter/material.dart';
 import 'package:com.makzan.eco/localization/language_constrants.dart';
 import 'package:com.makzan.eco/provider/auth_provider.dart';
 import 'package:com.makzan.eco/provider/splash_provider.dart';
-import 'package:com.makzan.eco/utill/app_constants.dart';
-import 'package:com.makzan.eco/utill/custom_themes.dart';
-import 'package:com.makzan.eco/utill/dimensions.dart';
-import 'package:com.makzan.eco/utill/images.dart';
 import 'package:com.makzan.eco/view/basewidget/no_internet_screen.dart';
 import 'package:com.makzan.eco/view/screen/dashboard/dashboard_screen.dart';
 import 'package:com.makzan.eco/view/screen/maintenance/maintenance_screen.dart';
 import 'package:provider/provider.dart';
+import 'package:video_player/video_player.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({Key? key}) : super(key: key);
@@ -28,6 +25,11 @@ class SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     super.initState();
+    _controller = VideoPlayerController.asset('assets/video/intro.mp4')
+      ..initialize().then((_) {
+        setState(() {});
+      })
+      ..setVolume(1);
 
     bool firstTime = true;
     _onConnectivityChanged = Connectivity()
@@ -50,18 +52,25 @@ class SplashScreenState extends State<SplashScreen> {
           ),
         ));
         if (!isNotConnected) {
+          _playVideo();
           _route();
         }
       }
       firstTime = false;
     });
-
+    _playVideo();
     _route();
+  }
+
+  void _playVideo() async {
+    _controller.play();
+    await Future.delayed(const Duration(seconds: 1));
   }
 
   @override
   void dispose() {
     super.dispose();
+    _controller.dispose();
 
     _onConnectivityChanged.cancel();
   }
@@ -108,29 +117,19 @@ class SplashScreenState extends State<SplashScreen> {
     });
   }
 
+  late VideoPlayerController _controller;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Theme.of(context).primaryColor,
-      // key: _globalKey,
+      backgroundColor: Colors.white,
       body: Provider.of<SplashProvider>(context).hasConnection
           ? Center(
-              child: Column(mainAxisSize: MainAxisSize.min, children: [
-                SizedBox(
-                    width: 100, child: Image.asset(Images.icon, width: 100.0)),
-                Text(AppConstants.appName,
-                    style: textRegular.copyWith(
-                        fontSize: Dimensions.fontSizeOverLarge,
-                        color: Colors.white)),
-                Padding(
-                    padding:
-                        const EdgeInsets.only(top: Dimensions.paddingSizeSmall),
-                    child: Text(AppConstants.slogan,
-                        style: textRegular.copyWith(
-                            fontSize: Dimensions.fontSizeDefault,
-                            color: Colors.white)))
-              ]),
-            )
+              child: _controller.value.isInitialized
+                  ? AspectRatio(
+                      aspectRatio: _controller.value.aspectRatio,
+                      child: VideoPlayer(_controller),
+                    )
+                  : Container())
           : const NoInternetOrDataScreen(
               isNoInternet: true, child: SplashScreen()),
     );

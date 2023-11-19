@@ -228,51 +228,7 @@ class _HomePageState extends State<HomePage> {
                           )
                         ]),
                   )),
-                )
-
-                // const SliverAppBar(
-                //   floating: true,
-                //   centerTitle: true,
-                //   automaticallyImplyLeading: false,
-                //   backgroundColor: Colors.transparent,
-                //   actions: [
-                //     SizedBox(child: CartWidgetHomePage()),
-                //   ],
-                // ), //for advertisment
-
-                // SliverPersistentHeader(
-                //     pinned: true,
-                //     delegate: SliverDelegate(
-                //         child: Row(
-                //       mainAxisAlignment: MainAxisAlignment.spaceAround,
-                //       children: [
-                //         SizedBox(
-                //             child: InkWell(
-                //                 onTap: () {
-                //                   SearchProvider searchProvider =
-                //                       Provider.of<SearchProvider>(context,
-                //                           listen: false);
-                //                   searchProvider.isLoadFilter = false;
-                //                   Navigator.push(
-                //                       context,
-                //                       MaterialPageRoute(
-                //                           builder: (_) =>
-                //                               const SearchByScreen()));
-                //                 },
-                //                 child: const ShopCatWidgetHomePage())),
-                //         SizedBox(
-                //           child: InkWell(
-                //             onTap: () => Navigator.push(
-                //                 context,
-                //                 MaterialPageRoute(
-                //                     builder: (_) => const SearchScreen())),
-                //             child: const SizedBox(),
-                //           ),
-                //         ),
-                //       ],
-                //     ))),
-
-                ,
+                ),
                 SliverToBoxAdapter(
                   child: Provider.of<SplashProvider>(context, listen: false)
                               .configModel!
