@@ -121,51 +121,53 @@ class NoInternetOrDataScreen extends StatelessWidget {
                       padding:
                           EdgeInsets.only(bottom: Dimensions.paddingSizeSmall),
                       child: LatestProductView()),
-                Consumer<FeaturedDealProvider>(
-                  builder: (context, featuredDealProvider, child) {
-                    return featuredDealProvider.featuredDealProductList != null
-                        ? featuredDealProvider
-                                .featuredDealProductList!.isNotEmpty
-                            ? Stack(children: [
-                                Container(
-                                    width: MediaQuery.of(context).size.width,
-                                    height: 150,
-                                    color: Provider.of<ThemeProvider>(context,
-                                                listen: false)
-                                            .darkTheme
-                                        ? Theme.of(context)
-                                            .primaryColor
-                                            .withOpacity(.20)
-                                        : Theme.of(context)
-                                            .primaryColor
-                                            .withOpacity(.125)),
-                                Padding(
-                                    padding: const EdgeInsets.only(
-                                        bottom: Dimensions.homePagePadding),
-                                    child: Column(
-                                      children: [
-                                        Padding(
-                                          padding: const EdgeInsets.symmetric(
-                                              vertical: Dimensions
-                                                  .paddingSizeDefault),
-                                          child: TitleRow(
-                                            title:
-                                                '${getTranslated('featured_deals', context)}',
-                                            onTap: () => Navigator.push(
-                                                context,
-                                                MaterialPageRoute(
-                                                    builder: (_) =>
-                                                        const FeaturedDealScreen())),
+                if (icCart)
+                  Consumer<FeaturedDealProvider>(
+                    builder: (context, featuredDealProvider, child) {
+                      return featuredDealProvider.featuredDealProductList !=
+                              null
+                          ? featuredDealProvider
+                                  .featuredDealProductList!.isNotEmpty
+                              ? Stack(children: [
+                                  Container(
+                                      width: MediaQuery.of(context).size.width,
+                                      height: 150,
+                                      color: Provider.of<ThemeProvider>(context,
+                                                  listen: false)
+                                              .darkTheme
+                                          ? Theme.of(context)
+                                              .primaryColor
+                                              .withOpacity(.20)
+                                          : Theme.of(context)
+                                              .primaryColor
+                                              .withOpacity(.125)),
+                                  Padding(
+                                      padding: const EdgeInsets.only(
+                                          bottom: Dimensions.homePagePadding),
+                                      child: Column(
+                                        children: [
+                                          Padding(
+                                            padding: const EdgeInsets.symmetric(
+                                                vertical: Dimensions
+                                                    .paddingSizeDefault),
+                                            child: TitleRow(
+                                              title:
+                                                  '${getTranslated('featured_deals', context)}',
+                                              onTap: () => Navigator.push(
+                                                  context,
+                                                  MaterialPageRoute(
+                                                      builder: (_) =>
+                                                          const FeaturedDealScreen())),
+                                            ),
                                           ),
-                                        ),
-                                        const FeaturedDealsView(),
-                                      ],
-                                    )),
-                              ])
-                            : const SizedBox.shrink()
-                        : const FindWhatYouNeedShimmer();
-                  },
-                ),
+                                          const FeaturedDealsView(),
+                                        ],
+                                      )),
+                                ])
+                              : const SizedBox.shrink()
+                          : const FindWhatYouNeedShimmer();
+                    },
+                  ),
               ],
             ),
           ),
