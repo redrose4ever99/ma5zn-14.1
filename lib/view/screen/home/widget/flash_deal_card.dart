@@ -1,3 +1,4 @@
+import 'package:com.makzan.eco/utill/size.dart';
 import 'package:flutter/material.dart';
 import 'package:com.makzan.eco/data/model/response/product_model.dart';
 import 'package:com.makzan.eco/helper/price_converter.dart';
@@ -50,7 +51,7 @@ class FlashDealCard extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.all(1),
                 child: Container(
-                  height: 240,
+                  height: height(240),
                   decoration: BoxDecoration(
                       border: Border.all(
                           color: Theme.of(context).primaryColor.withOpacity(.2),

@@ -152,15 +152,18 @@ class _MoreScreenState extends State<MoreScreen> {
                                 title: getTranslated('coupons', context),
                                 navigateTo: const CouponList()),
                             if (!isGuestMode)
-                              TitleButton(
-                                  image: Images.refIcon,
-                                  title:
-                                      getTranslated('refer_and_earn', context),
-                                  isProfile: true,
-                                  navigateTo: const ReferAndEarnScreen()),
+                              Visibility(
+                                visible: false,
+                                child: TitleButton(
+                                    image: Images.refIcon,
+                                    title: getTranslated(
+                                        'refer_and_earn', context),
+                                    isProfile: true,
+                                    navigateTo: const ReferAndEarnScreen()),
+                              ),
                             TitleButton(
                                 image: Images.category,
-                                title: getTranslated('CATEGORY', context),
+                                title: getTranslated('all_category', context),
                                 navigateTo: const AllCategoryScreen()),
                             if (Provider.of<SplashProvider>(
                                             context,

@@ -95,7 +95,7 @@ class TitleRow extends StatelessWidget {
                     horizontal: Dimensions.homePagePadding),
                 child: Text(title!,
                     style: titleHeader.copyWith(
-                        fontSize: 14,
+                        fontSize: height(14),
                         color: titleColor ??
                             (isFlash
                                 ? Colors.white

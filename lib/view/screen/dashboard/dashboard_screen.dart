@@ -40,11 +40,10 @@ class DashBoardScreenState extends State<DashBoardScreen> {
         "single";
 
     _screens = [
-      if (!singleVendor)
-        NavigationModel(
-            name: 'orders',
-            icon: Images.shoppingImage,
-            screen: const OrderScreen(isBacButtonExist: false)),
+      NavigationModel(
+          name: 'orders',
+          icon: Images.shoppingImage,
+          screen: const OrderScreen(isBacButtonExist: false)),
       NavigationModel(
           name: 'notification',
           icon: Images.notification,
@@ -94,7 +93,7 @@ class DashBoardScreenState extends State<DashBoardScreen> {
           body: PageStorage(bucket: bucket, child: _screens[_pageIndex].screen),
           bottomNavigationBar: CurvedNavigationBar(
               buttonBackgroundColor: Theme.of(context).primaryColor,
-              color: Theme.of(context).primaryColor,
+              color: Theme.of(context).scaffoldBackgroundColor,
               // animationCurve: Curves.easeInOut,
               backgroundColor: Colors.transparent,
               animationDuration: const Duration(milliseconds: 400),
@@ -179,7 +178,9 @@ class CustomMenuItem extends StatelessWidget {
                   children: [
                     Image.asset(
                       icon,
-                      color: Colors.white,
+                      color: (isSelected)
+                          ? Theme.of(context).scaffoldBackgroundColor
+                          : Theme.of(context).primaryColor,
                       width: (isSelected)
                           ? Dimensions.menuIconSize + 7
                           : Dimensions.menuIconSize,
@@ -192,8 +193,9 @@ class CustomMenuItem extends StatelessWidget {
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
                           style: textRegular.copyWith(
-                            color: Colors.white,
-                            fontWeight: FontWeight.w800,
+                            fontSize: 13,
+                            color: Theme.of(context).primaryColor,
+                            fontWeight: FontWeight.w600,
                           )),
                     if (isSelected)
                       Container(

@@ -44,7 +44,7 @@ class OnBoardingScreen extends StatelessWidget {
             builder: (context, onBoardingList, child) => ListView(
               children: [
                 SizedBox(
-                  height: height * 0.85,
+                  height: height * 0.8,
                   child: PageView.builder(
                     itemCount: onBoardingList.onBoardingList.length,
                     controller: _pageController,
@@ -53,7 +53,8 @@ class OnBoardingScreen extends StatelessWidget {
                         children: [
                           Stack(
                             children: [
-                              Opacity(
+                              AnimatedOpacity(
+                                duration: const Duration(seconds: 2),
                                 opacity: 0.47,
                                 child: ClipPath(
                                   clipper: WaveCliper(),
@@ -76,7 +77,8 @@ class OnBoardingScreen extends StatelessWidget {
                                     //  ImageConstant.imgImage,
                                     //fit: BoxFit.cover,
                                   )),
-                              Opacity(
+                              AnimatedOpacity(
+                                duration: const Duration(seconds: 1),
                                 opacity: 0.21,
                                 child: ClipPath(
                                   clipper: WaveCliper(),
@@ -88,18 +90,18 @@ class OnBoardingScreen extends StatelessWidget {
                               ),
                             ],
                           ),
-                          const SizedBox(height: 15),
+                          const Spacer(),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: _pageIndicators(
                                 onBoardingList.onBoardingList, context),
                           ),
-                          const SizedBox(height: 20),
+                          const SizedBox(height: 10),
                           Text(onBoardingList.onBoardingList[index].title,
                               style: onBoardtitle, textAlign: TextAlign.center),
-                          const SizedBox(height: 20),
+                          const SizedBox(height: 10),
                           Padding(
-                            padding: const EdgeInsets.all(10),
+                            padding: const EdgeInsets.only(left: 10, right: 10),
                             child: Center(
                               child: Text(
                                   onBoardingList
@@ -110,6 +112,7 @@ class OnBoardingScreen extends StatelessWidget {
                                   )),
                             ),
                           ),
+                          const Spacer(),
                         ],
                       );
                     },
@@ -118,11 +121,8 @@ class OnBoardingScreen extends StatelessWidget {
                     },
                   ),
                 ),
-                const SizedBox(
-                  height: 20,
-                ),
                 Container(
-                  height: 45,
+                  height: height * 0.09,
                   margin: const EdgeInsets.symmetric(
                       horizontal: 70, vertical: Dimensions.paddingSizeSmall),
                   decoration: BoxDecoration(
@@ -162,7 +162,7 @@ class OnBoardingScreen extends StatelessWidget {
                     ),
                   ),
                 ),
-                const SizedBox(height: 12),
+                const Spacer(),
               ],
             ),
           ),

@@ -1,3 +1,4 @@
+import 'package:com.makzan.eco/utill/size.dart';
 import 'package:flutter/material.dart';
 import 'package:com.makzan.eco/data/model/response/product_model.dart';
 import 'package:com.makzan.eco/helper/price_converter.dart';
@@ -52,7 +53,7 @@ class ProductWidget extends StatelessWidget {
         child: Stack(children: [
           Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
             Container(
-                height: 140,
+                height: height(140),
                 decoration: BoxDecoration(
                   color: Provider.of<ThemeProvider>(context, listen: false)
                           .darkTheme

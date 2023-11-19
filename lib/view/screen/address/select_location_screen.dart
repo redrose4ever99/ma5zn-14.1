@@ -1,3 +1,4 @@
+import 'package:com.makzan.eco/view/basewidget/spener.dart';
 import 'package:flutter/material.dart';
 import 'package:com.makzan.eco/localization/language_constrants.dart';
 import 'package:com.makzan.eco/provider/location_provider.dart';
@@ -11,7 +12,8 @@ import 'package:provider/provider.dart';
 
 class SelectLocationScreen extends StatefulWidget {
   final GoogleMapController? googleMapController;
-  const SelectLocationScreen({Key? key, required this.googleMapController}) : super(key: key);
+  const SelectLocationScreen({Key? key, required this.googleMapController})
+      : super(key: key);
 
   @override
   SelectLocationScreenState createState() => SelectLocationScreenState();
@@ -35,13 +37,18 @@ class SelectLocationScreenState extends State<SelectLocationScreen> {
     _controller!.dispose();
   }
 
-  void _openSearchDialog(BuildContext context, GoogleMapController? mapController) async {
-    showDialog(context: context, builder: (context) => LocationSearchDialog(mapController: mapController));
+  void _openSearchDialog(
+      BuildContext context, GoogleMapController? mapController) async {
+    showDialog(
+        context: context,
+        builder: (context) =>
+            LocationSearchDialog(mapController: mapController));
   }
 
   @override
   Widget build(BuildContext context) {
-    _locationController.text = '${Provider.of<LocationProvider>(context).address.name ?? ''}, '
+    _locationController.text =
+        '${Provider.of<LocationProvider>(context).address.name ?? ''}, '
         '${Provider.of<LocationProvider>(context).address.subAdministrativeArea ?? ''}, '
         '${Provider.of<LocationProvider>(context).address.isoCountryCode ?? ''}';
 
@@ -50,7 +57,8 @@ class SelectLocationScreenState extends State<SelectLocationScreen> {
         child: Center(
           child: Column(
             children: [
-              CustomAppBar(title: getTranslated('select_delivery_address', context)),
+              CustomAppBar(
+                  title: getTranslated('select_delivery_address', context)),
               Expanded(
                 child: Consumer<LocationProvider>(
                   builder: (context, locationProvider, child) => Stack(
@@ -59,7 +67,8 @@ class SelectLocationScreenState extends State<SelectLocationScreen> {
                       GoogleMap(
                         mapType: MapType.normal,
                         initialCameraPosition: CameraPosition(
-                          target: LatLng(locationProvider.position.latitude, locationProvider.position.longitude),
+                          target: LatLng(locationProvider.position.latitude,
+                              locationProvider.position.longitude),
                           zoom: 15,
                         ),
                         zoomControlsEnabled: false,
@@ -67,9 +76,11 @@ class SelectLocationScreenState extends State<SelectLocationScreen> {
                         indoorViewEnabled: true,
                         mapToolbarEnabled: true,
                         onCameraIdle: () {
-                          locationProvider.updatePosition(_cameraPosition, false, null, context);
+                          locationProvider.updatePosition(
+                              _cameraPosition, false, null, context);
                         },
-                        onCameraMove: ((position) => _cameraPosition = position),
+                        onCameraMove: ((position) =>
+                            _cameraPosition = position),
                         // markers: Set<Marker>.of(locationProvider.markers),
                         onMapCreated: (GoogleMapController controller) {
                           _controller = controller;
@@ -77,21 +88,33 @@ class SelectLocationScreenState extends State<SelectLocationScreen> {
                       ),
                       locationProvider.pickAddress != null
                           ? InkWell(
-                        onTap: () => _openSearchDialog(context, _controller),
-                        child: Container(
-                          width: MediaQuery.of(context).size.width,
-                          padding: const EdgeInsets.symmetric(horizontal: Dimensions.paddingSizeLarge, vertical: 18.0),
-                          margin: const EdgeInsets.symmetric(horizontal: Dimensions.paddingSizeLarge, vertical: 23.0),
-                          decoration:
-                          BoxDecoration(color: Theme.of(context).cardColor, borderRadius: BorderRadius.circular(Dimensions.paddingSizeSmall)),
-                          child: Row(children: [
-                            Expanded(child: Text(locationProvider.pickAddress!.name != null
-                                ? '${locationProvider.pickAddress?.name ?? ''} ${locationProvider.pickAddress?.subAdministrativeArea ?? ''} ${locationProvider.pickAddress?.isoCountryCode ?? ''}'
-                                : '', maxLines: 1, overflow: TextOverflow.ellipsis)),
-                            const Icon(Icons.search, size: 20),
-                          ]),
-                        ),
-                      )
+                              onTap: () =>
+                                  _openSearchDialog(context, _controller),
+                              child: Container(
+                                width: MediaQuery.of(context).size.width,
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: Dimensions.paddingSizeLarge,
+                                    vertical: 18.0),
+                                margin: const EdgeInsets.symmetric(
+                                    horizontal: Dimensions.paddingSizeLarge,
+                                    vertical: 23.0),
+                                decoration: BoxDecoration(
+                                    color: Theme.of(context).cardColor,
+                                    borderRadius: BorderRadius.circular(
+                                        Dimensions.paddingSizeSmall)),
+                                child: Row(children: [
+                                  Expanded(
+                                      child: Text(
+                                          locationProvider.pickAddress!.name !=
+                                                  null
+                                              ? '${locationProvider.pickAddress?.name ?? ''} ${locationProvider.pickAddress?.subAdministrativeArea ?? ''} ${locationProvider.pickAddress?.isoCountryCode ?? ''}'
+                                              : '',
+                                          maxLines: 1,
+                                          overflow: TextOverflow.ellipsis)),
+                                  const Icon(Icons.search, size: 20),
+                                ]),
+                              ),
+                            )
                           : const SizedBox.shrink(),
                       Positioned(
                         bottom: 0,
@@ -102,14 +125,18 @@ class SelectLocationScreenState extends State<SelectLocationScreen> {
                           children: [
                             InkWell(
                               onTap: () {
-                                locationProvider.getCurrentLocation(context, false, mapController: _controller);
+                                locationProvider.getCurrentLocation(
+                                    context, false,
+                                    mapController: _controller);
                               },
                               child: Container(
                                 width: 50,
                                 height: 50,
-                                margin: const EdgeInsets.only(right: Dimensions.paddingSizeLarge),
+                                margin: const EdgeInsets.only(
+                                    right: Dimensions.paddingSizeLarge),
                                 decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(Dimensions.paddingSizeSmall),
+                                  borderRadius: BorderRadius.circular(
+                                      Dimensions.paddingSizeSmall),
                                   color: ColorResources.getChatIcon(context),
                                 ),
                                 child: Icon(
@@ -122,14 +149,23 @@ class SelectLocationScreenState extends State<SelectLocationScreen> {
                             SizedBox(
                               width: double.infinity,
                               child: Padding(
-                                padding: const EdgeInsets.all(Dimensions.paddingSizeLarge),
+                                padding: const EdgeInsets.all(
+                                    Dimensions.paddingSizeLarge),
                                 child: CustomButton(
-                                  buttonText: getTranslated('select_location', context),
+                                  buttonText:
+                                      getTranslated('select_location', context),
                                   onTap: () {
-                                    if(widget.googleMapController != null) {
-                                      widget.googleMapController!.moveCamera(CameraUpdate.newCameraPosition(CameraPosition(target: LatLng(
-                                        locationProvider.pickPosition.latitude, locationProvider.pickPosition.longitude,
-                                      ), zoom: 15)));
+                                    if (widget.googleMapController != null) {
+                                      widget.googleMapController!.moveCamera(
+                                          CameraUpdate.newCameraPosition(
+                                              CameraPosition(
+                                                  target: LatLng(
+                                                    locationProvider
+                                                        .pickPosition.latitude,
+                                                    locationProvider
+                                                        .pickPosition.longitude,
+                                                  ),
+                                                  zoom: 15)));
                                       locationProvider.setAddAddressData();
                                     }
                                     Navigator.of(context).pop();
@@ -142,12 +178,14 @@ class SelectLocationScreenState extends State<SelectLocationScreen> {
                       ),
                       Center(
                           child: Icon(
-                            Icons.location_on,
-                            color: Theme.of(context).primaryColor,
-                            size: 50,
-                          )),
+                        Icons.location_on,
+                        color: Theme.of(context).primaryColor,
+                        size: 50,
+                      )),
                       locationProvider.loading
-                          ? Center(child: CircularProgressIndicator(valueColor: AlwaysStoppedAnimation<Color>(Theme.of(context).primaryColor)))
+                          ? const MySpener()
+
+                          //Center(child: CircularProgressIndicator(valueColor: AlwaysStoppedAnimation<Color>(Theme.of(context).primaryColor)))
                           : const SizedBox(),
                     ],
                   ),

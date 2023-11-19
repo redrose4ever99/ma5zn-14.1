@@ -13,7 +13,6 @@ class CategoryProvider extends ChangeNotifier {
 
   CategoryProvider({required this.categoryRepo});
 
-
   final List<Category> _categoryList = [];
   int? _categorySelectedIndex;
 
@@ -23,52 +22,58 @@ class CategoryProvider extends ChangeNotifier {
   Future<void> getCategoryList(bool reload) async {
     if (_categoryList.isEmpty || reload) {
       ApiResponse apiResponse = await categoryRepo!.getCategoryList();
-      if (apiResponse.response != null && apiResponse.response!.statusCode == 200) {
+      if (apiResponse.response != null &&
+          apiResponse.response!.statusCode == 200) {
         _categoryList.clear();
-        apiResponse.response!.data.forEach((category) => _categoryList.add(Category.fromJson(category)));
+        apiResponse.response!.data.forEach(
+            (category) => _categoryList.add(Category.fromJson(category)));
         _categorySelectedIndex = 0;
       } else {
-        ApiChecker.checkApi( apiResponse);
+        ApiChecker.checkApi(apiResponse);
       }
       notifyListeners();
     }
   }
 
   Future<void> getSellerWiseCategoryList(int sellerId) async {
-      ApiResponse apiResponse = await categoryRepo!.getSellerWiseCategoryList(sellerId);
-      if (apiResponse.response != null && apiResponse.response!.statusCode == 200) {
-        _categoryList.clear();
-        apiResponse.response!.data.forEach((category) => _categoryList.add(Category.fromJson(category)));
-        _categorySelectedIndex = 0;
-      } else {
-        ApiChecker.checkApi( apiResponse);
-      }
-      notifyListeners();
-
+    ApiResponse apiResponse =
+        await categoryRepo!.getSellerWiseCategoryList(sellerId);
+    if (apiResponse.response != null &&
+        apiResponse.response!.statusCode == 200) {
+      _categoryList.clear();
+      apiResponse.response!.data.forEach(
+          (category) => _categoryList.add(Category.fromJson(category)));
+      _categorySelectedIndex = 0;
+    } else {
+      ApiChecker.checkApi(apiResponse);
+    }
+    notifyListeners();
   }
 
   List<int> selectedCategoryIds = [];
-  void checkedToggleCategory(int index){
+  void checkedToggleCategory(int index) {
     _categoryList[index].isSelected = !_categoryList[index].isSelected!;
     notifyListeners();
   }
 
-  void checkedToggleSubCategory(int index, int subCategoryIndex){
-    _categoryList[index].subCategories![subCategoryIndex].isSelected = !_categoryList[index].subCategories![subCategoryIndex].isSelected!;
+  void checkedToggleSubCategory(int index, int subCategoryIndex) {
+    _categoryList[index].subCategories![subCategoryIndex].isSelected =
+        !_categoryList[index].subCategories![subCategoryIndex].isSelected!;
     notifyListeners();
   }
 
-  void resetChecked(int? id, bool fromShop){
-    if(fromShop){
+  void resetChecked(int? id, bool fromShop) {
+    if (fromShop) {
       getSellerWiseCategoryList(id!);
-      Provider.of<BrandProvider>(Get.context!, listen: false).getSellerWiseBrandList(id);
-      Provider.of<ProductProvider>(Get.context!, listen: false).getSellerProductList(id.toString(), 1, Get.context!);
-    }else{
+      Provider.of<BrandProvider>(Get.context!, listen: false)
+          .getSellerWiseBrandList(id);
+      Provider.of<ProductProvider>(Get.context!, listen: false)
+          .getSellerProductList(id.toString(), 1, Get.context!);
+    } else {
       getCategoryList(true);
-      Provider.of<BrandProvider>(Get.context!, listen: false).getBrandList(true);
+      Provider.of<BrandProvider>(Get.context!, listen: false)
+          .getBrandList(true);
     }
-
-
   }
 
   void changeSelectedIndex(int selectedIndex) {

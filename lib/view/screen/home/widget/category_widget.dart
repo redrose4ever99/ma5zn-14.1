@@ -54,14 +54,18 @@ class CategoryWidget extends StatelessWidget {
         const SizedBox(height: Dimensions.paddingSizeExtraSmall),
         Center(
           child: SizedBox(
-            width: width(70),
-            child: Text(category.name!,
-                textAlign: TextAlign.center,
-                maxLines: 2,
-                overflow: TextOverflow.ellipsis,
-                style: titilliumRegular.copyWith(
-                    fontSize: Dimensions.fontSizeSmall,
-                    color: ColorResources.getTextTitle(context))),
+            width: width(65),
+            child: Wrap(
+              children: [
+                Text(category.name!,
+                    textAlign: TextAlign.center,
+                    maxLines: 2,
+                    overflow: TextOverflow.ellipsis,
+                    style: titilliumRegular.copyWith(
+                        fontSize: Dimensions.fontSizeSmall,
+                        color: ColorResources.getTextTitle(context))),
+              ],
+            ),
           ),
         ),
       ]),

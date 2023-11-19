@@ -6,6 +6,8 @@ class Images {
   static const String homeImage = 'assets/images/home.png';
   static const String officeImage = 'assets/images/office.png';
   static const String logoImage = 'assets/images/logo.png';
+  static const String logoImageDark = 'assets/images/logo_dark.png';
+  //logo_dark.png
   static const String logoWithNameImage = 'assets/images/logo_with_name.png';
   static const String logoWithNameImageWhite =
       'assets/images/logo_with_name_white.png';
@@ -14,7 +16,7 @@ class Images {
   static const String moreImage = 'assets/images/more.png';
   static const String shoppingImage = 'assets/images/order.png';
   static const String wishImage = 'assets/images/wish.png';
-  static const String background = 'assets/images/background.jpg';
+  static const String background = 'assets/images/back.png';
   static const String couponBannerImage = 'assets/images/coupon_banner.png';
   static const String chatImage = 'assets/images/chat.png';
   static const String filterImage = 'assets/images/filter.png';
@@ -65,7 +67,8 @@ class Images {
   static const String saveShop = 'assets/images/saveshop.png';
   static const String delete = 'assets/images/delete.png';
   static const String address = 'assets/images/address.png';
-  static const String dropdown = 'assets/images/dropdown.png';
+  static const String dropdown = 'assets/images/dropdown.png'; //dropdn
+  static const String dropdn = 'assets/images/dropdn.png';
   static const String placeholder_1x1 = 'assets/images/placeholder_1x1.png';
   static const String placeholder_3x1 = 'assets/images/placeholder_3x1.png';
   static const String wallet = 'assets/images/wallet.png';
@@ -82,7 +85,7 @@ class Images {
   static const String returnPolicy = 'assets/images/return_policy.png';
   static const String refundPolicy = 'assets/images/refund_policy.png';
   static const String faq = 'assets/images/faq.png';
-  static const String category = 'assets/images/category.png';
+  static const String category = 'assets/images/Categories.png';
   static const String logout = 'assets/images/logout.png';
   static const String myOrder = 'assets/images/my_order.png';
   static const String support = 'assets/images/support.png';

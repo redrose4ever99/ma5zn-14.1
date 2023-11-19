@@ -44,8 +44,8 @@ class NoInternetOrDataScreen extends StatelessWidget {
                         : icon != null
                             ? icon!
                             : Images.noData,
-                    width: width(60),
-                    height: width(60),
+                    width: width(134),
+                    height: width(134),
                   ),
                   if (isNoInternet)
                     Text(getTranslated('OPPS', context)!,

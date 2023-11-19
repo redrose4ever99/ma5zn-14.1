@@ -1,4 +1,5 @@
 import 'package:com.makzan.eco/utill/size.dart';
+import 'package:com.makzan.eco/view/basewidget/spener.dart';
 import 'package:flutter/material.dart';
 import 'package:com.makzan.eco/provider/category_provider.dart';
 import 'package:com.makzan.eco/view/screen/home/widget/category_widget.dart';
@@ -46,7 +47,7 @@ class CategoryView extends StatelessWidget {
                   },
                 ),
               )
-            : const CategoryShimmer();
+            : const MySpener();
       },
     );
   }

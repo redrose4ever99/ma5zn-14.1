@@ -1,3 +1,4 @@
+import 'package:com.makzan.eco/utill/size.dart';
 import 'package:flutter/material.dart';
 import 'package:com.makzan.eco/data/model/response/top_seller_model.dart';
 import 'package:com.makzan.eco/localization/language_constrants.dart';
@@ -111,7 +112,7 @@ class _SellerCardState extends State<SellerCard> {
             child: Column(
               children: [
                 SizedBox(
-                  height: widget.isHomePage ? 60 : 120,
+                  height: widget.isHomePage ? height(60) : height(120),
                   width: double.infinity,
                   child: ClipRRect(
                       borderRadius: const BorderRadius.only(

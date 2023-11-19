@@ -1,5 +1,10 @@
+import 'package:com.makzan.eco/provider/search_provider.dart';
+import 'package:com.makzan.eco/utill/size.dart';
+import 'package:com.makzan.eco/view/screen/category/all_category_screen.dart';
+import 'package:com.makzan.eco/view/screen/flashdeal/flash_deal_screen.dart';
+import 'package:com.makzan.eco/view/screen/home/widget/shopcat_widget_home_page.dart';
+import 'package:com.makzan.eco/view/screen/search/search_by.dart';
 import 'package:flutter/material.dart';
-
 import 'package:com.makzan.eco/helper/product_type.dart';
 import 'package:com.makzan.eco/localization/language_constrants.dart';
 import 'package:com.makzan.eco/main.dart';
@@ -23,7 +28,6 @@ import 'package:com.makzan.eco/utill/dimensions.dart';
 import 'package:com.makzan.eco/utill/images.dart';
 import 'package:com.makzan.eco/view/basewidget/title_row.dart';
 import 'package:com.makzan.eco/view/screen/brand/all_brand_screen.dart';
-import 'package:com.makzan.eco/view/screen/category/all_category_screen.dart';
 import 'package:com.makzan.eco/view/screen/featureddeal/featured_deal_screen.dart';
 import 'package:com.makzan.eco/view/screen/home/shimmer/featured_product_shimmer.dart';
 import 'package:com.makzan.eco/view/screen/home/widget/announcement.dart';
@@ -34,13 +38,10 @@ import 'package:com.makzan.eco/view/screen/home/widget/cart_widget_home_page.dar
 import 'package:com.makzan.eco/view/screen/home/widget/category_view.dart';
 import 'package:com.makzan.eco/view/screen/home/widget/featured_deal_view.dart';
 import 'package:com.makzan.eco/view/screen/home/widget/featured_product_view.dart';
-import 'package:com.makzan.eco/view/screen/home/shimmer/flash_deal_shimmer.dart';
-import 'package:com.makzan.eco/view/screen/home/widget/flash_deals_view.dart';
 import 'package:com.makzan.eco/view/screen/home/widget/footer_banner.dart';
 import 'package:com.makzan.eco/view/screen/home/widget/home_category_product_view.dart';
 import 'package:com.makzan.eco/view/screen/home/widget/latest_product_view.dart';
 import 'package:com.makzan.eco/view/screen/home/widget/products_view.dart';
-import 'package:com.makzan.eco/view/screen/flashdeal/flash_deal_screen.dart';
 import 'package:com.makzan.eco/view/screen/home/widget/recommended_product_view.dart';
 import 'package:com.makzan.eco/view/screen/home/widget/search_widget_home_page.dart';
 import 'package:com.makzan.eco/view/screen/home/widget/top_seller_view.dart';
@@ -48,6 +49,9 @@ import 'package:com.makzan.eco/view/screen/product/view_all_product_screen.dart'
 import 'package:com.makzan.eco/view/screen/search/search_screen.dart';
 import 'package:com.makzan.eco/view/screen/shop/all_shop_screen.dart';
 import 'package:provider/provider.dart';
+
+import 'shimmer/flash_deal_shimmer.dart';
+import 'widget/flash_deals_view.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -112,7 +116,10 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    double ScreenHeight = MediaQuery.of(context).size.height;
+    double screenHeight = MediaQuery.of(context).size.height;
+    double screenWidth = MediaQuery.of(context).size.width;
+
+    bool isDark = Provider.of<ThemeProvider>(context, listen: false).darkTheme;
     List<String?> types = [
       getTranslated('new_arrival', context),
       getTranslated('top_product', context),
@@ -121,6 +128,32 @@ class _HomePageState extends State<HomePage> {
     ];
     return Scaffold(
       resizeToAvoidBottomInset: false,
+
+      // const SearchProductWidget();
+
+      // onPressed: () => showModalBottomSheet(
+      //     context: context,
+      //     isScrollControlled: true,
+      //     backgroundColor: Colors.transparent,
+      //     builder: (c) => const SearchByScreen()),
+      // child: Container(
+      //   padding: const EdgeInsets.symmetric(
+      //       vertical: Dimensions.paddingSizeExtraSmall,
+      //       horizontal: Dimensions.paddingSizeExtraSmall),
+      //   decoration: BoxDecoration(
+      //       borderRadius: BorderRadius.circular(5),
+      //       border: Border.all(
+      //           color: Theme.of(context).hintColor.withOpacity(.25))),
+      //   child: SizedBox(
+      //       width: 25,
+      //       height: 24,
+      //       child: Image.asset(Images.dropdown,
+      //           color: Provider.of<ThemeProvider>(context, listen: false)
+      //                   .darkTheme
+      //               ? Colors.white
+      //               : Theme.of(context).primaryColor)),
+      // ),
+
       body: SafeArea(
         child: RefreshIndicator(
           onRefresh: () async {
@@ -136,25 +169,110 @@ class _HomePageState extends State<HomePage> {
                 SliverAppBar(
                   flexibleSpace: FlexibleSpaceBar(
                     centerTitle: true,
-                    title: Image.asset(Images.logoImage,
+                    title: Image.asset(
+                        isDark ? Images.logoImageDark : Images.logoImage,
                         height: 0.076 * MediaQuery.of(context).size.height),
-                    background: Image.network(
-                        'https://media.cloudbooklet.com/uploads/2023/06/21111428/luma-ai-1-750x422.jpg',
-                        fit: BoxFit.cover),
                   ),
-                  expandedHeight: 0.141 * ScreenHeight,
+                  expandedHeight: 0.141 * screenHeight,
                   backgroundColor: Theme.of(context).scaffoldBackgroundColor,
                 ),
-                SliverAppBar(
-                  floating: true,
-                  elevation: 8,
-                  centerTitle: true,
-                  automaticallyImplyLeading: false,
-                  backgroundColor: Theme.of(context).highlightColor,
-                  actions: const [
-                    CartWidgetHomePage(),
-                  ],
-                ),
+                const SliverToBoxAdapter(
+                    child: Padding(
+                  padding: EdgeInsets.only(right: 8.0, left: 8),
+                  child: CartWidgetHomePage(),
+                )),
+                SliverPersistentHeader(
+                  pinned: true,
+                  delegate: SliverDelegate(
+                      child: SizedBox(
+                    width: screenWidth - 20,
+                    height: 100,
+                    child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Expanded(
+                            child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: InkWell(
+                                  onTap: () {
+                                    SearchProvider searchProvider =
+                                        Provider.of<SearchProvider>(context,
+                                            listen: false);
+                                    searchProvider.isLoadFilter = false;
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (_) =>
+                                                const SearchByScreen()));
+                                  },
+                                  child: const ShopCatWidgetHomePage()),
+                            ),
+                          ),
+                          Expanded(
+                            child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: InkWell(
+                                  onTap: () {
+                                    SearchProvider searchProvider =
+                                        Provider.of<SearchProvider>(context,
+                                            listen: false);
+                                    searchProvider.isLoadFilter = false;
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (_) =>
+                                                const SearchScreen()));
+                                  },
+                                  child: const SearchWidgetHomePage()),
+                            ),
+                          )
+                        ]),
+                  )),
+                )
+
+                // const SliverAppBar(
+                //   floating: true,
+                //   centerTitle: true,
+                //   automaticallyImplyLeading: false,
+                //   backgroundColor: Colors.transparent,
+                //   actions: [
+                //     SizedBox(child: CartWidgetHomePage()),
+                //   ],
+                // ), //for advertisment
+
+                // SliverPersistentHeader(
+                //     pinned: true,
+                //     delegate: SliverDelegate(
+                //         child: Row(
+                //       mainAxisAlignment: MainAxisAlignment.spaceAround,
+                //       children: [
+                //         SizedBox(
+                //             child: InkWell(
+                //                 onTap: () {
+                //                   SearchProvider searchProvider =
+                //                       Provider.of<SearchProvider>(context,
+                //                           listen: false);
+                //                   searchProvider.isLoadFilter = false;
+                //                   Navigator.push(
+                //                       context,
+                //                       MaterialPageRoute(
+                //                           builder: (_) =>
+                //                               const SearchByScreen()));
+                //                 },
+                //                 child: const ShopCatWidgetHomePage())),
+                //         SizedBox(
+                //           child: InkWell(
+                //             onTap: () => Navigator.push(
+                //                 context,
+                //                 MaterialPageRoute(
+                //                     builder: (_) => const SearchScreen())),
+                //             child: const SizedBox(),
+                //           ),
+                //         ),
+                //       ],
+                //     ))),
+
+                ,
                 SliverToBoxAdapter(
                   child: Provider.of<SplashProvider>(context, listen: false)
                               .configModel!
@@ -175,23 +293,12 @@ class _HomePageState extends State<HomePage> {
                         )
                       : const SizedBox(),
                 ),
-                SliverPersistentHeader(
-                    pinned: true,
-                    delegate: SliverDelegate(
-                        child: InkWell(
-                            onTap: () => Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (_) => const SearchScreen())),
-                            child: const SearchWidgetHomePage()))),
                 SliverToBoxAdapter(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const BannersView(),
-                      const SizedBox(height: Dimensions.homePagePadding),
-
                       // Category
+
                       Padding(
                         padding: const EdgeInsets.symmetric(
                             horizontal: Dimensions.paddingSizeExtraExtraSmall,
@@ -206,6 +313,9 @@ class _HomePageState extends State<HomePage> {
                       ),
                       const SizedBox(height: Dimensions.paddingSizeSmall),
                       const CategoryView(isHomePage: true),
+                      const SizedBox(height: Dimensions.homePagePadding),
+                      const BannersView(),
+
                       const SizedBox(height: Dimensions.paddingSizeSmall),
                       // Flash Deal
                       Consumer<FlashDealProvider>(

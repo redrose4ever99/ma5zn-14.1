@@ -18,8 +18,19 @@ class ChooseLanguageScreen extends StatefulWidget {
 }
 
 class _ChooseLanguageScreen extends State<ChooseLanguageScreen> {
+  // bool _isArabic = false;
+  bool _isEg = true;
+  bool _isExpanded = false;
+  bool _isExpanded1 = false;
   @override
   Widget build(BuildContext context) {
+    _isEg = Provider.of<LocalizationProvider>(context, listen: false)
+            .locale
+            .languageCode ==
+        AppConstants.languages[0].languageCode;
+    _isExpanded1 = _isEg;
+    _isExpanded = !_isExpanded1;
+
     Color prmColor = Theme.of(context).primaryColor;
     //var screenSize = MediaQuery.of(context).size;
     double fullHeight = MediaQuery.of(context).size.height;
@@ -40,25 +51,18 @@ class _ChooseLanguageScreen extends State<ChooseLanguageScreen> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
-                  const SizedBox(height: 200),
-                  Center(
+                  const SizedBox(height: 100),
+                  AnimatedContainer(
+                    duration: const Duration(seconds: 3),
                     child: Image.asset(
-                      "assets/images/Face.png",
+                      "assets/images/logo.png",
                       fit: BoxFit.fill,
-                      width: width(62),
-                      height: height(62),
+                      width: width(150),
+                      height: height(100),
                       color: prmColor,
                     ),
                   ),
-                  const SizedBox(height: 25),
-                  Center(
-                    child: Text(
-                      getTranslated('choose_language_for', context)!,
-                      style: onBoardtitle.copyWith(
-                          fontSize: 20, color: Theme.of(context).hintColor),
-                    ),
-                  ),
-                  const SizedBox(height: 15),
+                  const SizedBox(height: 50),
                   Center(
                     child: Text(
                       getTranslated('choose_language_for1', context)!,
@@ -67,73 +71,101 @@ class _ChooseLanguageScreen extends State<ChooseLanguageScreen> {
                   ),
                   const SizedBox(height: 25),
                   Center(
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: [
-                        TextButton(
-                          onPressed: () {
-                            Provider.of<LocalizationProvider>(context,
-                                    listen: false)
-                                .setLanguage(Locale(
-                              AppConstants.languages[0].languageCode!,
-                              AppConstants.languages[0].countryCode,
-                            ));
-                          },
-                          child: Container(
-                            width: fullWidth / 3,
-                            height: fullWidth / 3,
-                            decoration: BoxDecoration(
-                                border: Border.all(color: prmColor),
-                                color: Provider.of<LocalizationProvider>(
-                                                context,
-                                                listen: false)
-                                            .locale
-                                            .languageCode ==
-                                        AppConstants.languages[0].languageCode
-                                    ? Theme.of(context).primaryColor
-                                    : Theme.of(context).highlightColor,
-                                borderRadius: BorderRadius.circular(20)),
-                            alignment: Alignment.center,
-                            child: const Text("English"),
-                          ),
-                        ),
-                        const SizedBox(width: 15),
-                        TextButton(
-                          onPressed: () {
-                            Provider.of<LocalizationProvider>(context,
-                                    listen: false)
-                                .setLanguage(Locale(
-                              AppConstants.languages[1].languageCode!,
-                              AppConstants.languages[1].countryCode,
-                            ));
-                          },
-                          child: Container(
-                            width: fullWidth / 2.5,
-                            height: fullWidth / 2.5,
-                            decoration: BoxDecoration(
-                                border: Border.all(color: prmColor),
-                                color: Provider.of<LocalizationProvider>(
-                                                context,
-                                                listen: false)
-                                            .locale
-                                            .languageCode ==
-                                        AppConstants.languages[1].languageCode
-                                    ? Theme.of(context).primaryColor
-                                    : Theme.of(context).highlightColor,
-                                borderRadius: BorderRadius.circular(20)),
-                            alignment: Alignment.center,
-                            child: const Text(
-                              "العربية",
-                              style: TextStyle(color: Colors.blueGrey),
+                    child: Padding(
+                      padding: const EdgeInsets.all(5.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.all(5.0),
+                            child: TextButton(
+                              onPressed: () {
+                                Provider.of<LocalizationProvider>(context,
+                                        listen: false)
+                                    .setLanguage(Locale(
+                                  AppConstants.languages[0].languageCode!,
+                                  AppConstants.languages[0].countryCode,
+                                ));
+                                setState(() {
+                                  _isEg = !_isEg;
+                                  _isExpanded1 = !_isExpanded1;
+                                });
+                              },
+                              child: AnimatedContainer(
+                                curve: Curves.linearToEaseOut,
+                                duration: const Duration(seconds: 2),
+                                width: _isExpanded1
+                                    ? fullWidth / 2.7
+                                    : fullWidth / 3.2,
+                                height: _isExpanded1
+                                    ? fullWidth / 2.7
+                                    : fullWidth / 3.2,
+                                decoration: BoxDecoration(
+                                    border: Border.all(color: prmColor),
+                                    color: (_isEg)
+                                        ? Theme.of(context).primaryColor
+                                        : Colors.white,
+                                    borderRadius: BorderRadius.circular(
+                                        _isExpanded1 ? 50 : fullWidth / 2.7)),
+                                alignment: Alignment.center,
+                                child: Text(
+                                  "English",
+                                  style: titilliumBold.copyWith(
+                                      fontSize: 18,
+                                      color: (_isEg)
+                                          ? Colors.white
+                                          : Theme.of(context).primaryColor),
+                                ),
+                              ),
                             ),
                           ),
-                        ),
-                      ],
+                          Padding(
+                            padding: const EdgeInsets.all(5.0),
+                            child: TextButton(
+                              onPressed: () {
+                                Provider.of<LocalizationProvider>(context,
+                                        listen: false)
+                                    .setLanguage(Locale(
+                                  AppConstants.languages[1].languageCode!,
+                                  AppConstants.languages[1].countryCode,
+                                ));
+
+                                setState(() {
+                                  _isEg = !_isEg;
+                                  _isExpanded = !_isExpanded;
+                                });
+                              },
+                              child: AnimatedContainer(
+                                curve: Curves.linearToEaseOut,
+                                duration: const Duration(seconds: 2),
+                                width: _isExpanded
+                                    ? fullWidth / 2.7
+                                    : fullWidth / 3.2,
+                                height: _isExpanded
+                                    ? fullWidth / 2.7
+                                    : fullWidth / 3.2,
+                                decoration: BoxDecoration(
+                                    border: Border.all(color: prmColor),
+                                    color: (!_isEg)
+                                        ? Theme.of(context).primaryColor
+                                        : Colors.white,
+                                    borderRadius: BorderRadius.circular(
+                                        _isExpanded ? 50 : fullWidth / 2.7)),
+                                alignment: Alignment.center,
+                                child: Text("العربية",
+                                    style: titilliumBold.copyWith(
+                                        fontSize: 18,
+                                        color: (!_isEg)
+                                            ? Colors.white
+                                            : Theme.of(context).primaryColor)),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                   Container(
-                    height: width(200),
-                    width: width(200),
                     margin: const EdgeInsets.symmetric(horizontal: 70),
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(50),
@@ -153,8 +185,8 @@ class _ChooseLanguageScreen extends State<ChooseLanguageScreen> {
                           child: Image.asset(
                             "assets/images/Next_button.png",
                             fit: BoxFit.fill,
-                            width: width(100),
-                            height: height(100),
+                            width: width(130),
+                            height: height(130),
                             matchTextDirection: true,
                           ),
                         ),
