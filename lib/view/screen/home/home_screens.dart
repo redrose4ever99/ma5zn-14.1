@@ -186,27 +186,28 @@ class _HomePageState extends State<HomePage> {
                   delegate: SliverDelegate(
                       child: SizedBox(
                     width: screenWidth - 20,
-                    height: 100,
                     child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Expanded(
                             child: Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: InkWell(
-                                  onTap: () {
-                                    SearchProvider searchProvider =
-                                        Provider.of<SearchProvider>(context,
-                                            listen: false);
-                                    searchProvider.isLoadFilter = false;
-                                    Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (_) =>
-                                                const SearchByScreen()));
-                                  },
-                                  child: const ShopCatWidgetHomePage()),
-                            ),
+                                padding: const EdgeInsets.all(8.0),
+                                child: SizedBox(
+                                    height: 54,
+                                    child: GestureDetector(
+                                      onTap: () {
+                                        SearchProvider searchProvider =
+                                            Provider.of<SearchProvider>(context,
+                                                listen: false);
+                                        searchProvider.isLoadFilter = false;
+                                        Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (_) =>
+                                                    const SearchByScreen()));
+                                      },
+                                      child: const ShopCatWidgetHomePage(),
+                                    ))),
                           ),
                           Expanded(
                             child: Padding(

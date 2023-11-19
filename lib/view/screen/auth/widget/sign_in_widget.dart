@@ -1,6 +1,6 @@
 import 'package:com.makzan.eco/utill/size.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/foundation.dart';
+
 import 'package:flutter/material.dart';
 import 'package:com.makzan.eco/data/model/body/login_model.dart';
 import 'package:com.makzan.eco/helper/velidate_check.dart';
@@ -20,6 +20,8 @@ import 'package:com.makzan.eco/view/screen/auth/forget_password_screen.dart';
 import 'package:com.makzan.eco/view/screen/auth/widget/mobile_verify_screen.dart';
 import 'package:com.makzan.eco/view/screen/auth/widget/social_login_widget.dart';
 import 'package:com.makzan.eco/view/screen/dashboard/dashboard_screen.dart';
+import 'package:flutter/services.dart';
+import 'package:local_auth/local_auth.dart';
 import 'package:provider/provider.dart';
 
 import 'otp_verification_screen.dart';
@@ -36,9 +38,15 @@ class SignInWidgetState extends State<SignInWidget> {
   TextEditingController? _passwordController;
   GlobalKey<FormState>? _formKeyLogin;
 
+  bool _supportState = false;
+  late final LocalAuthentication auth;
   @override
   void initState() {
     super.initState();
+    auth = LocalAuthentication();
+    auth.isDeviceSupported().then((bool isSupported) => setState(() {
+          _supportState = isSupported;
+        }));
     _formKeyLogin = GlobalKey<FormState>();
     _emailController = TextEditingController();
     _passwordController = TextEditingController();
@@ -255,21 +263,24 @@ class SignInWidgetState extends State<SignInWidget> {
                             buttonText: getTranslated('LOGIN', context))),
               ),
             ),
-            const SizedBox(width: Dimensions.paddingSizeDefault),
-            Center(
-              child: Text(getTranslated('signiture_log_hint', context)!),
-            ),
-            const SizedBox(height: Dimensions.paddingSizeEight),
-            Center(
-              child: GestureDetector(
-                onTap: () {},
-                child: Image.asset(Images.fingerprint,
-                    width: width(49), height: height(54)),
+            if (_supportState)
+              const SizedBox(width: Dimensions.paddingSizeDefault),
+            if (_supportState)
+              Center(
+                child: Text(getTranslated('signiture_log_hint', context)!),
               ),
-            ),
+            if (_supportState)
+              const SizedBox(height: Dimensions.paddingSizeEight),
+            if (_supportState)
+              Center(
+                child: GestureDetector(
+                  onTap: _authPrint,
+                  child: Image.asset(Images.fingerprint,
+                      width: width(49), height: height(54)),
+                ),
+              ),
 
             //segniture_log_hint
-
             const SizedBox(height: Dimensions.paddingSizeDefault),
             const SocialLoginWidget(),
             // Consumer<AuthProvider>(builder: (context, authProvider, _) {
@@ -317,4 +328,25 @@ class SignInWidgetState extends State<SignInWidget> {
       ),
     );
   }
+
+  Future<void> _authPrint() async {
+    try {
+      bool authenticated = await auth.authenticate(
+          localizedReason: getTranslated('signiture_msg', context)!,
+          options: const AuthenticationOptions(
+              stickyAuth: true, biometricOnly: true));
+      if (authenticated) {
+        Navigator.pushAndRemoveUntil(
+            Get.context!,
+            MaterialPageRoute(builder: (_) => const DashBoardScreen()),
+            (route) => false);
+      }
+    } on PlatformException catch (e) {}
+  }
+
+  // Future<void> _getAvailableBiometrics() async {
+  //   List<BiometricType> availableBeometric =
+  //       await auth.getAvailableBiometrics();
+
+  // }
 }

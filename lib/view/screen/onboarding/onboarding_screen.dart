@@ -1,5 +1,6 @@
 import 'package:com.makzan.eco/provider/theme_provider.dart';
 import 'package:com.makzan.eco/utill/images.dart';
+import 'package:com.makzan.eco/utill/size.dart';
 import 'package:com.makzan.eco/view/screen/started/started_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:com.makzan.eco/localization/language_constrants.dart';
@@ -27,7 +28,7 @@ class OnBoardingScreen extends StatelessWidget {
     Provider.of<OnBoardingProvider>(context, listen: false)
         .initBoardingList(context);
 
-    double height = MediaQuery.of(context).size.height;
+    double fullHeight = MediaQuery.of(context).size.height;
 
     return Scaffold(
       body: Stack(
@@ -44,7 +45,7 @@ class OnBoardingScreen extends StatelessWidget {
             builder: (context, onBoardingList, child) => ListView(
               children: [
                 SizedBox(
-                  height: height * 0.8,
+                  height: fullHeight * 0.8,
                   child: PageView.builder(
                     itemCount: onBoardingList.onBoardingList.length,
                     controller: _pageController,
@@ -122,7 +123,7 @@ class OnBoardingScreen extends StatelessWidget {
                   ),
                 ),
                 Container(
-                  height: height * 0.09,
+                  height: fullHeight * 0.09,
                   margin: const EdgeInsets.symmetric(
                       horizontal: 70, vertical: Dimensions.paddingSizeSmall),
                   decoration: BoxDecoration(
@@ -149,6 +150,7 @@ class OnBoardingScreen extends StatelessWidget {
                       }
                     },
                     child: Container(
+                      height: height(42),
                       width: double.infinity,
                       alignment: Alignment.center,
                       child: Text(

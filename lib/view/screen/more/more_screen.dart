@@ -275,7 +275,7 @@ class _MoreScreenState extends State<MoreScreen> {
                                     .status ==
                                 1)
                               TitleButton(
-                                  image: Images.termCondition,
+                                  image: Images.refundPolicy1,
                                   title:
                                       getTranslated('refund_policy', context),
                                   navigateTo: HtmlViewScreen(
@@ -294,7 +294,7 @@ class _MoreScreenState extends State<MoreScreen> {
                                     .status ==
                                 1)
                               TitleButton(
-                                  image: Images.termCondition,
+                                  image: Images.returnBox,
                                   title:
                                       getTranslated('return_policy', context),
                                   navigateTo: HtmlViewScreen(
@@ -372,20 +372,20 @@ class _MoreScreenState extends State<MoreScreen> {
                         }
                       },
                     ),
-                    Padding(
-                      padding: const EdgeInsets.only(
-                          bottom: Dimensions.paddingSizeDefault),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(
-                              '${getTranslated('version', context)} ${AppConstants.appVersion}',
-                              style: textRegular.copyWith(
-                                  fontSize: Dimensions.fontSizeLarge,
-                                  color: Theme.of(context).hintColor)),
-                        ],
-                      ),
-                    )
+                    // Padding(
+                    //   padding: const EdgeInsets.only(
+                    //       bottom: Dimensions.paddingSizeDefault),
+                    //   child: Row(
+                    //     mainAxisAlignment: MainAxisAlignment.center,
+                    //     children: [
+                    //       Text(
+                    //           '${getTranslated('version', context)} ${AppConstants.appVersion}',
+                    //           style: textRegular.copyWith(
+                    //               fontSize: Dimensions.fontSizeLarge,
+                    //               color: Theme.of(context).hintColor)),
+                    //     ],
+                    //   ),
+                    // )
                   ]),
             ),
           ),

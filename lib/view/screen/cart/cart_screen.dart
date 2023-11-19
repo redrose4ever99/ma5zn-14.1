@@ -339,241 +339,229 @@ class CartScreenState extends State<CartScreen> {
                 })
               : null,
           appBar: CustomAppBar(title: getTranslated('my_cart', context)),
-          body: Column(children: [
-            cart.isXyz
-                ? const Expanded(child: CartPageShimmer())
-                : sellerList.isNotEmpty
-                    ? Expanded(
-                        child: Column(
-                          children: [
-                            Expanded(
-                              child: RefreshIndicator(
-                                onRefresh: () async {
-                                  if (Provider.of<AuthProvider>(context,
-                                          listen: false)
-                                      .isLoggedIn()) {
-                                    await Provider.of<CartProvider>(context,
+          body: SingleChildScrollView(
+            reverse: false,
+            child: Column(children: [
+              cart.isXyz
+                  ? const Expanded(child: CartPageShimmer())
+                  : sellerList.isNotEmpty
+                      ? Expanded(
+                          child: Column(
+                            children: [
+                              Expanded(
+                                child: RefreshIndicator(
+                                  onRefresh: () async {
+                                    if (Provider.of<AuthProvider>(context,
                                             listen: false)
-                                        .getCartDataAPI(context);
-                                  }
-                                },
-                                child: ListView.builder(
-                                  itemCount: sellerList.length,
-                                  padding: const EdgeInsets.all(0),
-                                  itemBuilder: (context, index) {
-                                    bool hasPhysical = false;
-                                    double totalCost = 0;
-                                    for (CartModel cart
-                                        in cartProductList[index]) {
-                                      totalCost +=
-                                          (cart.price! - cart.discount!) *
-                                                  cart.quantity! +
-                                              tax +
-                                              shippingAmount;
+                                        .isLoggedIn()) {
+                                      await Provider.of<CartProvider>(context,
+                                              listen: false)
+                                          .getCartDataAPI(context);
                                     }
-
-                                    for (CartModel cart
-                                        in cartProductList[index]) {
-                                      if (cart.productType == 'physical') {
-                                        hasPhysical = true;
-                                        totalPhysical += 1;
-                                        break;
+                                  },
+                                  child: ListView.builder(
+                                    itemCount: sellerList.length,
+                                    padding: const EdgeInsets.all(0),
+                                    itemBuilder: (context, index) {
+                                      bool hasPhysical = false;
+                                      double totalCost = 0;
+                                      for (CartModel cart
+                                          in cartProductList[index]) {
+                                        totalCost +=
+                                            (cart.price! - cart.discount!) *
+                                                    cart.quantity! +
+                                                tax +
+                                                shippingAmount;
                                       }
-                                    }
 
-                                    return Container(
-                                      color: (sellerGroupList[index]
-                                                  .minimumOrderAmountInfo! >
-                                              totalCost)
-                                          ? Theme.of(context)
-                                              .colorScheme
-                                              .error
-                                              .withOpacity(.05)
-                                          : index.floor().isOdd
-                                              ? Theme.of(context)
-                                                  .colorScheme
-                                                  .onSecondaryContainer
-                                              : Theme.of(context).canvasColor,
-                                      child: Padding(
-                                        padding: const EdgeInsets.only(
-                                            bottom:
-                                                Dimensions.paddingSizeSmall),
-                                        child: Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            children: [
-                                              sellerGroupList[index]
-                                                      .shopInfo!
-                                                      .isNotEmpty
-                                                  ? Padding(
-                                                      padding: const EdgeInsets
-                                                              .only(
-                                                          top: Dimensions
-                                                              .paddingSizeSmall),
-                                                      child: Row(
-                                                        mainAxisAlignment:
-                                                            MainAxisAlignment
-                                                                .spaceBetween,
-                                                        children: [
-                                                          Expanded(
-                                                              child: Padding(
-                                                                  padding: const EdgeInsets
-                                                                          .symmetric(
-                                                                      horizontal:
-                                                                          Dimensions
-                                                                              .paddingSizeSmall),
-                                                                  child: Row(
-                                                                      children: [
-                                                                        Flexible(
-                                                                          child: Text(
-                                                                              sellerGroupList[index].shopInfo!,
-                                                                              maxLines: 1,
-                                                                              overflow: TextOverflow.ellipsis,
-                                                                              textAlign: TextAlign.start,
-                                                                              style: textBold.copyWith(fontSize: Dimensions.fontSizeLarge, color: Provider.of<ThemeProvider>(context, listen: false).darkTheme ? Theme.of(context).hintColor : Theme.of(context).primaryColor)),
-                                                                        ),
-                                                                        Padding(
-                                                                            padding:
-                                                                                const EdgeInsets.symmetric(horizontal: Dimensions.paddingSizeExtraSmall),
-                                                                            child: Text('(${cartProductList[index].length})', style: textBold.copyWith(color: Provider.of<ThemeProvider>(context, listen: false).darkTheme ? Theme.of(context).hintColor : Theme.of(context).primaryColor, fontSize: Dimensions.fontSizeLarge))),
-                                                                      ]))),
-                                                          SizedBox(
-                                                            width: 200,
-                                                            child: configProvider
-                                                                            .configModel!
-                                                                            .shippingMethod ==
-                                                                        'sellerwise_shipping' &&
-                                                                    sellerGroupList[index]
-                                                                            .shippingType ==
-                                                                        'order_wise' &&
-                                                                    hasPhysical
-                                                                ? Padding(
+                                      for (CartModel cart
+                                          in cartProductList[index]) {
+                                        if (cart.productType == 'physical') {
+                                          hasPhysical = true;
+                                          totalPhysical += 1;
+                                          break;
+                                        }
+                                      }
+
+                                      return Container(
+                                        color: (sellerGroupList[index]
+                                                    .minimumOrderAmountInfo! >
+                                                totalCost)
+                                            ? Theme.of(context)
+                                                .colorScheme
+                                                .error
+                                                .withOpacity(.05)
+                                            : index.floor().isOdd
+                                                ? Theme.of(context)
+                                                    .colorScheme
+                                                    .onSecondaryContainer
+                                                : Theme.of(context).canvasColor,
+                                        child: Padding(
+                                          padding: const EdgeInsets.only(
+                                              bottom:
+                                                  Dimensions.paddingSizeSmall),
+                                          child: Column(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              children: [
+                                                sellerGroupList[index]
+                                                        .shopInfo!
+                                                        .isNotEmpty
+                                                    ? Padding(
+                                                        padding: const EdgeInsets
+                                                                .only(
+                                                            top: Dimensions
+                                                                .paddingSizeSmall),
+                                                        child: Row(
+                                                          mainAxisAlignment:
+                                                              MainAxisAlignment
+                                                                  .spaceBetween,
+                                                          children: [
+                                                            Expanded(
+                                                                child: Padding(
                                                                     padding: const EdgeInsets
                                                                             .symmetric(
                                                                         horizontal:
-                                                                            Dimensions.paddingSizeDefault),
-                                                                    child:
-                                                                        InkWell(
-                                                                      onTap:
-                                                                          () {
-                                                                        showModalBottomSheet(
-                                                                          context:
-                                                                              context,
-                                                                          isScrollControlled:
-                                                                              true,
-                                                                          backgroundColor:
-                                                                              Colors.transparent,
-                                                                          builder: (context) => ShippingMethodBottomSheet(
-                                                                              groupId: sellerGroupList[index].cartGroupId,
-                                                                              sellerIndex: index,
-                                                                              sellerId: sellerGroupList[index].id),
-                                                                        );
-                                                                      },
+                                                                            Dimensions
+                                                                                .paddingSizeSmall),
+                                                                    child: Row(
+                                                                        children: [
+                                                                          Flexible(
+                                                                            child: Text(sellerGroupList[index].shopInfo!,
+                                                                                maxLines: 1,
+                                                                                overflow: TextOverflow.ellipsis,
+                                                                                textAlign: TextAlign.start,
+                                                                                style: textBold.copyWith(fontSize: Dimensions.fontSizeLarge, color: Provider.of<ThemeProvider>(context, listen: false).darkTheme ? Theme.of(context).hintColor : Theme.of(context).primaryColor)),
+                                                                          ),
+                                                                          Padding(
+                                                                              padding: const EdgeInsets.symmetric(horizontal: Dimensions.paddingSizeExtraSmall),
+                                                                              child: Text('(${cartProductList[index].length})', style: textBold.copyWith(color: Provider.of<ThemeProvider>(context, listen: false).darkTheme ? Theme.of(context).hintColor : Theme.of(context).primaryColor, fontSize: Dimensions.fontSizeLarge))),
+                                                                        ]))),
+                                                            SizedBox(
+                                                              width: 200,
+                                                              child: configProvider
+                                                                              .configModel!
+                                                                              .shippingMethod ==
+                                                                          'sellerwise_shipping' &&
+                                                                      sellerGroupList[index]
+                                                                              .shippingType ==
+                                                                          'order_wise' &&
+                                                                      hasPhysical
+                                                                  ? Padding(
+                                                                      padding: const EdgeInsets
+                                                                              .symmetric(
+                                                                          horizontal:
+                                                                              Dimensions.paddingSizeDefault),
                                                                       child:
-                                                                          Container(
-                                                                        decoration: BoxDecoration(
-                                                                            border:
-                                                                                Border.all(width: 0.5, color: Colors.grey),
-                                                                            borderRadius: const BorderRadius.all(Radius.circular(10))),
+                                                                          InkWell(
+                                                                        onTap:
+                                                                            () {
+                                                                          showModalBottomSheet(
+                                                                            context:
+                                                                                context,
+                                                                            isScrollControlled:
+                                                                                true,
+                                                                            backgroundColor:
+                                                                                Colors.transparent,
+                                                                            builder: (context) => ShippingMethodBottomSheet(
+                                                                                groupId: sellerGroupList[index].cartGroupId,
+                                                                                sellerIndex: index,
+                                                                                sellerId: sellerGroupList[index].id),
+                                                                          );
+                                                                        },
                                                                         child:
-                                                                            Padding(
-                                                                          padding:
-                                                                              const EdgeInsets.all(8.0),
-                                                                          child: Row(
-                                                                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                                              children: [
-                                                                                if (cart.shippingList == null || cart.shippingList![index].shippingMethodList == null || cart.chosenShippingList.isEmpty || cart.shippingList![index].shippingIndex == -1)
-                                                                                  Row(
-                                                                                    children: [
-                                                                                      SizedBox(width: 15, height: 15, child: Image.asset(Images.delivery, color: Theme.of(context).textTheme.bodyLarge?.color)),
-                                                                                      const SizedBox(width: Dimensions.paddingSizeExtraSmall),
-                                                                                      Text(
-                                                                                        getTranslated('choose_shipping', context)!,
-                                                                                        style: textRegular,
-                                                                                        overflow: TextOverflow.ellipsis,
-                                                                                        maxLines: 1,
-                                                                                      ),
-                                                                                    ],
-                                                                                  ),
-                                                                                Flexible(child: Text((cart.shippingList == null || cart.shippingList![index].shippingMethodList == null || cart.chosenShippingList.isEmpty || cart.shippingList![index].shippingIndex == -1) ? '' : cart.shippingList![index].shippingMethodList![cart.shippingList![index].shippingIndex!].title.toString(), style: titilliumSemiBold.copyWith(color: Theme.of(context).hintColor), maxLines: 1, overflow: TextOverflow.ellipsis, textAlign: TextAlign.end)),
-                                                                                Icon(Icons.keyboard_arrow_down, color: Theme.of(context).primaryColor),
-                                                                              ]),
+                                                                            Container(
+                                                                          decoration: BoxDecoration(
+                                                                              border: Border.all(width: 0.5, color: Colors.grey),
+                                                                              borderRadius: const BorderRadius.all(Radius.circular(10))),
+                                                                          child:
+                                                                              Padding(
+                                                                            padding:
+                                                                                const EdgeInsets.all(8.0),
+                                                                            child:
+                                                                                Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+                                                                              if (cart.shippingList == null || cart.shippingList![index].shippingMethodList == null || cart.chosenShippingList.isEmpty || cart.shippingList![index].shippingIndex == -1)
+                                                                                Row(
+                                                                                  children: [
+                                                                                    SizedBox(width: 15, height: 15, child: Image.asset(Images.delivery, color: Theme.of(context).textTheme.bodyLarge?.color)),
+                                                                                    const SizedBox(width: Dimensions.paddingSizeExtraSmall),
+                                                                                    Text(
+                                                                                      getTranslated('choose_shipping', context)!,
+                                                                                      style: textRegular,
+                                                                                      overflow: TextOverflow.ellipsis,
+                                                                                      maxLines: 1,
+                                                                                    ),
+                                                                                  ],
+                                                                                ),
+                                                                              Flexible(child: Text((cart.shippingList == null || cart.shippingList![index].shippingMethodList == null || cart.chosenShippingList.isEmpty || cart.shippingList![index].shippingIndex == -1) ? '' : cart.shippingList![index].shippingMethodList![cart.shippingList![index].shippingIndex!].title.toString(), style: titilliumSemiBold.copyWith(color: Theme.of(context).hintColor), maxLines: 1, overflow: TextOverflow.ellipsis, textAlign: TextAlign.end)),
+                                                                              Icon(Icons.keyboard_arrow_down, color: Theme.of(context).primaryColor),
+                                                                            ]),
+                                                                          ),
                                                                         ),
                                                                       ),
-                                                                    ),
-                                                                  )
-                                                                : const SizedBox(),
-                                                          )
-                                                        ],
-                                                      ),
-                                                    )
-                                                  : const SizedBox(),
-                                              if (sellerGroupList[index]
-                                                      .minimumOrderAmountInfo! >
-                                                  totalCost)
-                                                Padding(
-                                                  padding: const EdgeInsets
-                                                          .symmetric(
-                                                      horizontal: Dimensions
-                                                          .paddingSizeSmall,
-                                                      vertical: Dimensions
-                                                          .paddingSizeSmall),
-                                                  child: Text(
-                                                    '${getTranslated('minimum_order_amount_is', context)} ${PriceConverter.convertPrice(context, sellerGroupList[index].minimumOrderAmountInfo)}',
-                                                    style: textRegular.copyWith(
-                                                        color: Theme.of(context)
-                                                            .colorScheme
-                                                            .error),
+                                                                    )
+                                                                  : const SizedBox(),
+                                                            )
+                                                          ],
+                                                        ),
+                                                      )
+                                                    : const SizedBox(),
+                                                if (sellerGroupList[index]
+                                                        .minimumOrderAmountInfo! >
+                                                    totalCost)
+                                                  Padding(
+                                                    padding: const EdgeInsets
+                                                            .symmetric(
+                                                        horizontal: Dimensions
+                                                            .paddingSizeSmall,
+                                                        vertical: Dimensions
+                                                            .paddingSizeSmall),
+                                                    child: Text(
+                                                      '${getTranslated('minimum_order_amount_is', context)} ${PriceConverter.convertPrice(context, sellerGroupList[index].minimumOrderAmountInfo)}',
+                                                      style:
+                                                          textRegular.copyWith(
+                                                              color: Theme.of(
+                                                                      context)
+                                                                  .colorScheme
+                                                                  .error),
+                                                    ),
                                                   ),
-                                                ),
-                                              if (configProvider.configModel!
-                                                          .shippingMethod ==
-                                                      'sellerwise_shipping' &&
-                                                  sellerGroupList[index]
-                                                          .shippingType ==
-                                                      'order_wise' &&
-                                                  hasPhysical)
-                                                Padding(
-                                                  padding: const EdgeInsets
-                                                          .symmetric(
-                                                      horizontal: Dimensions
-                                                          .paddingSizeSmall),
-                                                  child: (cart.shippingList ==
-                                                              null ||
-                                                          cart
-                                                                  .shippingList![
-                                                                      index]
-                                                                  .shippingMethodList ==
-                                                              null ||
-                                                          cart.chosenShippingList
-                                                              .isEmpty ||
-                                                          cart
-                                                                  .shippingList![
-                                                                      index]
-                                                                  .shippingIndex ==
-                                                              -1)
-                                                      ? const SizedBox()
-                                                      : Column(
-                                                          crossAxisAlignment:
-                                                              CrossAxisAlignment
-                                                                  .start,
-                                                          children: [
-                                                            Row(
-                                                              children: [
-                                                                Text(
-                                                                  (cart.shippingList == null ||
-                                                                          cart.shippingList![index].shippingMethodList ==
-                                                                              null ||
-                                                                          cart.chosenShippingList
-                                                                              .isEmpty ||
-                                                                          cart.shippingList![index].shippingIndex ==
-                                                                              -1)
-                                                                      ? ''
-                                                                      : '${getTranslated('shipping_cost', context) ?? ''} : ',
-                                                                  style:
-                                                                      textRegular,
-                                                                ),
-                                                                Text(
+                                                if (configProvider.configModel!
+                                                            .shippingMethod ==
+                                                        'sellerwise_shipping' &&
+                                                    sellerGroupList[index]
+                                                            .shippingType ==
+                                                        'order_wise' &&
+                                                    hasPhysical)
+                                                  Padding(
+                                                    padding: const EdgeInsets
+                                                            .symmetric(
+                                                        horizontal: Dimensions
+                                                            .paddingSizeSmall),
+                                                    child: (cart
+                                                                    .shippingList ==
+                                                                null ||
+                                                            cart
+                                                                    .shippingList![
+                                                                        index]
+                                                                    .shippingMethodList ==
+                                                                null ||
+                                                            cart.chosenShippingList
+                                                                .isEmpty ||
+                                                            cart
+                                                                    .shippingList![
+                                                                        index]
+                                                                    .shippingIndex ==
+                                                                -1)
+                                                        ? const SizedBox()
+                                                        : Column(
+                                                            crossAxisAlignment:
+                                                                CrossAxisAlignment
+                                                                    .start,
+                                                            children: [
+                                                              Row(
+                                                                children: [
+                                                                  Text(
                                                                     (cart.shippingList == null ||
                                                                             cart.shippingList![index].shippingMethodList ==
                                                                                 null ||
@@ -582,38 +570,31 @@ class CartScreenState extends State<CartScreen> {
                                                                             cart.shippingList![index].shippingIndex ==
                                                                                 -1)
                                                                         ? ''
-                                                                        : PriceConverter.convertPrice(
-                                                                            context,
-                                                                            cart.shippingList![index].shippingMethodList![cart.shippingList![index].shippingIndex!].cost),
-                                                                    style: textBold.copyWith(),
-                                                                    maxLines: 1,
-                                                                    overflow: TextOverflow.ellipsis,
-                                                                    textAlign: TextAlign.end),
-                                                              ],
-                                                            ),
-                                                            const SizedBox(
-                                                              height: Dimensions
-                                                                  .paddingSizeExtraSmall,
-                                                            ),
-                                                            Row(
-                                                              children: [
-                                                                Text(
-                                                                  (cart.shippingList == null ||
-                                                                          cart.shippingList![index].shippingMethodList ==
-                                                                              null ||
-                                                                          cart.chosenShippingList
-                                                                              .isEmpty ||
-                                                                          cart.shippingList![index].shippingIndex ==
-                                                                              -1)
-                                                                      ? ''
-                                                                      : '${getTranslated('shipping_time', context) ?? ''} : ',
-                                                                  style:
-                                                                      textRegular,
-                                                                ),
-                                                                Text(
-                                                                    (cart
-                                                                                    .shippingList ==
-                                                                                null ||
+                                                                        : '${getTranslated('shipping_cost', context) ?? ''} : ',
+                                                                    style:
+                                                                        textRegular,
+                                                                  ),
+                                                                  Text((cart.shippingList == null || cart.shippingList![index].shippingMethodList == null || cart.chosenShippingList.isEmpty || cart.shippingList![index].shippingIndex == -1) ? '' : PriceConverter.convertPrice(context, cart.shippingList![index].shippingMethodList![cart.shippingList![index].shippingIndex!].cost),
+                                                                      style: textBold
+                                                                          .copyWith(),
+                                                                      maxLines:
+                                                                          1,
+                                                                      overflow:
+                                                                          TextOverflow
+                                                                              .ellipsis,
+                                                                      textAlign:
+                                                                          TextAlign
+                                                                              .end),
+                                                                ],
+                                                              ),
+                                                              const SizedBox(
+                                                                height: Dimensions
+                                                                    .paddingSizeExtraSmall,
+                                                              ),
+                                                              Row(
+                                                                children: [
+                                                                  Text(
+                                                                    (cart.shippingList == null ||
                                                                             cart.shippingList![index].shippingMethodList ==
                                                                                 null ||
                                                                             cart
@@ -621,349 +602,368 @@ class CartScreenState extends State<CartScreen> {
                                                                             cart.shippingList![index].shippingIndex ==
                                                                                 -1)
                                                                         ? ''
-                                                                        : '${cart.shippingList![index].shippingMethodList![cart.shippingList![index].shippingIndex!].duration.toString()} ${getTranslated('days', context)}',
-                                                                    style: textBold
-                                                                        .copyWith(),
-                                                                    maxLines: 1,
-                                                                    overflow:
-                                                                        TextOverflow
-                                                                            .ellipsis,
-                                                                    textAlign:
-                                                                        TextAlign
-                                                                            .end)
-                                                              ],
-                                                            ),
-                                                          ],
+                                                                        : '${getTranslated('shipping_time', context) ?? ''} : ',
+                                                                    style:
+                                                                        textRegular,
+                                                                  ),
+                                                                  Text(
+                                                                      (cart.shippingList == null ||
+                                                                              cart.shippingList![index].shippingMethodList ==
+                                                                                  null ||
+                                                                              cart
+                                                                                  .chosenShippingList.isEmpty ||
+                                                                              cart.shippingList![index].shippingIndex ==
+                                                                                  -1)
+                                                                          ? ''
+                                                                          : '${cart.shippingList![index].shippingMethodList![cart.shippingList![index].shippingIndex!].duration.toString()} ${getTranslated('days', context)}',
+                                                                      style: textBold
+                                                                          .copyWith(),
+                                                                      maxLines:
+                                                                          1,
+                                                                      overflow:
+                                                                          TextOverflow
+                                                                              .ellipsis,
+                                                                      textAlign:
+                                                                          TextAlign
+                                                                              .end)
+                                                                ],
+                                                              ),
+                                                            ],
+                                                          ),
+                                                  ),
+                                                Card(
+                                                  child: Container(
+                                                    padding: const EdgeInsets
+                                                            .only(
+                                                        bottom: Dimensions
+                                                            .paddingSizeLarge),
+                                                    decoration: BoxDecoration(
+                                                        color: Theme.of(context)
+                                                            .highlightColor),
+                                                    child: Column(
+                                                      children: [
+                                                        ListView.builder(
+                                                          physics:
+                                                              const NeverScrollableScrollPhysics(),
+                                                          shrinkWrap: true,
+                                                          padding:
+                                                              const EdgeInsets
+                                                                  .all(0),
+                                                          itemCount:
+                                                              cartProductList[
+                                                                      index]
+                                                                  .length,
+                                                          itemBuilder:
+                                                              (context, i) {
+                                                            return CartWidget(
+                                                              cartModel:
+                                                                  cartProductList[
+                                                                      index][i],
+                                                              index:
+                                                                  cartProductIndexList[
+                                                                      index][i],
+                                                              fromCheckout: widget
+                                                                  .fromCheckout,
+                                                            );
+                                                          },
                                                         ),
+                                                      ],
+                                                    ),
+                                                  ),
                                                 ),
-                                              Card(
-                                                child: Container(
-                                                  padding: const EdgeInsets
-                                                          .only(
-                                                      bottom: Dimensions
-                                                          .paddingSizeLarge),
-                                                  decoration: BoxDecoration(
-                                                      color: Theme.of(context)
-                                                          .highlightColor),
-                                                  child: Column(
-                                                    children: [
-                                                      ListView.builder(
-                                                        physics:
-                                                            const NeverScrollableScrollPhysics(),
-                                                        shrinkWrap: true,
-                                                        padding:
-                                                            const EdgeInsets
-                                                                .all(0),
-                                                        itemCount:
-                                                            cartProductList[
+                                                if (sellerGroupList[index]
+                                                            .freeDeliveryOrderAmount
+                                                            ?.status ==
+                                                        1 &&
+                                                    hasPhysical)
+                                                  Padding(
+                                                    padding: const EdgeInsets
+                                                            .only(
+                                                        bottom:
+                                                            Dimensions
+                                                                .paddingSizeSmall,
+                                                        left: Dimensions
+                                                            .paddingSizeDefault,
+                                                        right: Dimensions
+                                                            .paddingSizeDefault,
+                                                        top: Dimensions
+                                                            .paddingSizeSmall),
+                                                    child: Row(
+                                                      children: [
+                                                        SizedBox(
+                                                            height: 16,
+                                                            child: Image.asset(
+                                                              Images
+                                                                  .freeShipping,
+                                                              color: Provider.of<
+                                                                              ThemeProvider>(
+                                                                          context,
+                                                                          listen:
+                                                                              false)
+                                                                      .darkTheme
+                                                                  ? Theme.of(
+                                                                          context)
+                                                                      .hintColor
+                                                                  : Theme.of(
+                                                                          context)
+                                                                      .primaryColor,
+                                                            )),
+                                                        if (sellerGroupList[
                                                                     index]
-                                                                .length,
-                                                        itemBuilder:
-                                                            (context, i) {
-                                                          return CartWidget(
-                                                            cartModel:
-                                                                cartProductList[
-                                                                    index][i],
-                                                            index:
-                                                                cartProductIndexList[
-                                                                    index][i],
-                                                            fromCheckout: widget
-                                                                .fromCheckout,
-                                                          );
-                                                        },
-                                                      ),
-                                                    ],
-                                                  ),
-                                                ),
-                                              ),
-                                              if (sellerGroupList[index]
-                                                          .freeDeliveryOrderAmount
-                                                          ?.status ==
-                                                      1 &&
-                                                  hasPhysical)
-                                                Padding(
-                                                  padding: const EdgeInsets
-                                                          .only(
-                                                      bottom: Dimensions
-                                                          .paddingSizeSmall,
-                                                      left: Dimensions
-                                                          .paddingSizeDefault,
-                                                      right: Dimensions
-                                                          .paddingSizeDefault,
-                                                      top: Dimensions
-                                                          .paddingSizeSmall),
-                                                  child: Row(
-                                                    children: [
-                                                      SizedBox(
-                                                          height: 16,
-                                                          child: Image.asset(
-                                                            Images.freeShipping,
-                                                            color: Provider.of<
-                                                                            ThemeProvider>(
-                                                                        context,
-                                                                        listen:
-                                                                            false)
-                                                                    .darkTheme
-                                                                ? Theme.of(
-                                                                        context)
-                                                                    .hintColor
-                                                                : Theme.of(
-                                                                        context)
-                                                                    .primaryColor,
-                                                          )),
-                                                      if (sellerGroupList[index]
-                                                              .freeDeliveryOrderAmount!
-                                                              .amountNeed! >
-                                                          0)
-                                                        Padding(
-                                                          padding: const EdgeInsets
-                                                                  .symmetric(
-                                                              horizontal: Dimensions
-                                                                  .paddingSizeExtraSmall),
-                                                          child: Text(
-                                                              PriceConverter.convertPrice(
-                                                                  context,
-                                                                  sellerGroupList[
-                                                                          index]
-                                                                      .freeDeliveryOrderAmount!
-                                                                      .amountNeed!),
-                                                              style: textMedium.copyWith(
-                                                                  color: Theme.of(
-                                                                          context)
-                                                                      .primaryColor)),
-                                                        ),
-                                                      sellerGroupList[index]
-                                                                  .freeDeliveryOrderAmount!
-                                                                  .percentage! <
-                                                              100
-                                                          ? Text(
-                                                              '${getTranslated('add_more_for_free_delivery', context)}',
-                                                              style: textMedium.copyWith(
-                                                                  color: Theme.of(
-                                                                          context)
-                                                                      .hintColor))
-                                                          : Padding(
-                                                              padding: const EdgeInsets
-                                                                      .symmetric(
-                                                                  horizontal:
-                                                                      Dimensions
-                                                                          .paddingSizeExtraSmall),
-                                                              child: Text(
-                                                                  '${getTranslated('you_got_free_delivery', context)}',
-                                                                  style: textMedium
-                                                                      .copyWith(
-                                                                          color:
-                                                                              Colors.green)),
-                                                            )
-                                                    ],
-                                                  ),
-                                                ),
-                                              if (sellerGroupList[index]
-                                                          .freeDeliveryOrderAmount
-                                                          ?.status ==
-                                                      1 &&
-                                                  hasPhysical)
-                                                Padding(
-                                                  padding: const EdgeInsets
-                                                          .fromLTRB(
-                                                      Dimensions
-                                                          .paddingSizeDefault,
-                                                      0,
-                                                      Dimensions
-                                                          .paddingSizeDefault,
-                                                      Dimensions
-                                                          .paddingSizeDefault),
-                                                  child: LinearPercentIndicator(
-                                                    padding: EdgeInsets.zero,
-                                                    barRadius: const Radius
-                                                            .circular(
-                                                        Dimensions
-                                                            .paddingSizeDefault),
-                                                    width:
-                                                        MediaQuery.of(context)
-                                                                .size
-                                                                .width -
-                                                            40,
-                                                    lineHeight: 4.0,
-                                                    percent: sellerGroupList[
-                                                                index]
-                                                            .freeDeliveryOrderAmount!
-                                                            .percentage! /
-                                                        100,
-                                                    backgroundColor:
-                                                        Provider.of<ThemeProvider>(
+                                                                .freeDeliveryOrderAmount!
+                                                                .amountNeed! >
+                                                            0)
+                                                          Padding(
+                                                            padding: const EdgeInsets
+                                                                    .symmetric(
+                                                                horizontal:
+                                                                    Dimensions
+                                                                        .paddingSizeExtraSmall),
+                                                            child: Text(
+                                                                PriceConverter.convertPrice(
                                                                     context,
-                                                                    listen:
-                                                                        false)
-                                                                .darkTheme
-                                                            ? Theme.of(context)
-                                                                .primaryColor
-                                                                .withOpacity(.5)
-                                                            : Theme.of(context)
-                                                                .primaryColor
-                                                                .withOpacity(
-                                                                    .2),
-                                                    progressColor: (sellerGroupList[
-                                                                        index]
+                                                                    sellerGroupList[
+                                                                            index]
+                                                                        .freeDeliveryOrderAmount!
+                                                                        .amountNeed!),
+                                                                style: textMedium.copyWith(
+                                                                    color: Theme.of(
+                                                                            context)
+                                                                        .primaryColor)),
+                                                          ),
+                                                        sellerGroupList[index]
                                                                     .freeDeliveryOrderAmount!
                                                                     .percentage! <
-                                                                100 &&
-                                                            !Provider.of<
-                                                                        ThemeProvider>(
-                                                                    context,
-                                                                    listen:
-                                                                        false)
-                                                                .darkTheme)
-                                                        ? Theme.of(context)
-                                                            .colorScheme
-                                                            .onSecondary
-                                                        : Colors.green,
+                                                                100
+                                                            ? Text(
+                                                                '${getTranslated('add_more_for_free_delivery', context)}',
+                                                                style: textMedium.copyWith(
+                                                                    color: Theme.of(
+                                                                            context)
+                                                                        .hintColor))
+                                                            : Padding(
+                                                                padding: const EdgeInsets
+                                                                        .symmetric(
+                                                                    horizontal:
+                                                                        Dimensions
+                                                                            .paddingSizeExtraSmall),
+                                                                child: Text(
+                                                                    '${getTranslated('you_got_free_delivery', context)}',
+                                                                    style: textMedium
+                                                                        .copyWith(
+                                                                            color:
+                                                                                Colors.green)),
+                                                              )
+                                                      ],
+                                                    ),
                                                   ),
-                                                ),
-                                            ]),
-                                      ),
-                                    );
-                                  },
-                                ),
-                              ),
-                            ),
-                            (!onlyDigital &&
-                                    configProvider
-                                            .configModel!.shippingMethod !=
-                                        'sellerwise_shipping' &&
-                                    configProvider.configModel!
-                                            .inhouseSelectedShippingType ==
-                                        'order_wise')
-                                ? InkWell(
-                                    onTap: () {
-                                      showModalBottomSheet(
-                                        context: context,
-                                        isScrollControlled: true,
-                                        backgroundColor: Colors.transparent,
-                                        builder: (context) =>
-                                            const ShippingMethodBottomSheet(
-                                                groupId: 'all_cart_group',
-                                                sellerIndex: 0,
-                                                sellerId: 1),
+                                                if (sellerGroupList[index]
+                                                            .freeDeliveryOrderAmount
+                                                            ?.status ==
+                                                        1 &&
+                                                    hasPhysical)
+                                                  Padding(
+                                                    padding: const EdgeInsets
+                                                            .fromLTRB(
+                                                        Dimensions
+                                                            .paddingSizeDefault,
+                                                        0,
+                                                        Dimensions
+                                                            .paddingSizeDefault,
+                                                        Dimensions
+                                                            .paddingSizeDefault),
+                                                    child:
+                                                        LinearPercentIndicator(
+                                                      padding: EdgeInsets.zero,
+                                                      barRadius: const Radius
+                                                              .circular(
+                                                          Dimensions
+                                                              .paddingSizeDefault),
+                                                      width:
+                                                          MediaQuery.of(context)
+                                                                  .size
+                                                                  .width -
+                                                              40,
+                                                      lineHeight: 4.0,
+                                                      percent: sellerGroupList[
+                                                                  index]
+                                                              .freeDeliveryOrderAmount!
+                                                              .percentage! /
+                                                          100,
+                                                      backgroundColor: Provider
+                                                                  .of<ThemeProvider>(
+                                                                      context,
+                                                                      listen:
+                                                                          false)
+                                                              .darkTheme
+                                                          ? Theme.of(context)
+                                                              .primaryColor
+                                                              .withOpacity(.5)
+                                                          : Theme.of(context)
+                                                              .primaryColor
+                                                              .withOpacity(.2),
+                                                      progressColor: (sellerGroupList[
+                                                                          index]
+                                                                      .freeDeliveryOrderAmount!
+                                                                      .percentage! <
+                                                                  100 &&
+                                                              !Provider.of<
+                                                                          ThemeProvider>(
+                                                                      context,
+                                                                      listen:
+                                                                          false)
+                                                                  .darkTheme)
+                                                          ? Theme.of(context)
+                                                              .colorScheme
+                                                              .onSecondary
+                                                          : Colors.green,
+                                                    ),
+                                                  ),
+                                              ]),
+                                        ),
                                       );
                                     },
-                                    child: Padding(
-                                      padding: const EdgeInsets.fromLTRB(
-                                          Dimensions.paddingSizeDefault,
-                                          0,
-                                          Dimensions.paddingSizeDefault,
-                                          Dimensions.paddingSizeDefault),
-                                      child: Container(
-                                        decoration: BoxDecoration(
-                                            border: Border.all(
-                                                width: 0.5, color: Colors.grey),
-                                            borderRadius:
-                                                const BorderRadius.all(
-                                                    Radius.circular(10))),
-                                        child: Padding(
-                                          padding: const EdgeInsets.all(8.0),
-                                          child: Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment
-                                                      .spaceBetween,
-                                              children: [
-                                                Row(
-                                                  children: [
-                                                    SizedBox(
-                                                        width: 15,
-                                                        height: 15,
-                                                        child: Image.asset(
-                                                            Images.delivery,
-                                                            color: Theme.of(
-                                                                    context)
-                                                                .textTheme
-                                                                .bodyLarge
-                                                                ?.color)),
-                                                    const SizedBox(
-                                                        width: Dimensions
-                                                            .paddingSizeExtraSmall),
-                                                    Text(
-                                                      getTranslated(
-                                                          'choose_shipping',
-                                                          context)!,
-                                                      style: textRegular,
-                                                      overflow:
-                                                          TextOverflow.ellipsis,
-                                                      maxLines: 1,
-                                                    ),
-                                                  ],
-                                                ),
-                                                Row(
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment.end,
+                                  ),
+                                ),
+                              ),
+                              (!onlyDigital &&
+                                      configProvider
+                                              .configModel!.shippingMethod !=
+                                          'sellerwise_shipping' &&
+                                      configProvider.configModel!
+                                              .inhouseSelectedShippingType ==
+                                          'order_wise')
+                                  ? InkWell(
+                                      onTap: () {
+                                        showModalBottomSheet(
+                                          context: context,
+                                          isScrollControlled: true,
+                                          backgroundColor: Colors.transparent,
+                                          builder: (context) =>
+                                              const ShippingMethodBottomSheet(
+                                                  groupId: 'all_cart_group',
+                                                  sellerIndex: 0,
+                                                  sellerId: 1),
+                                        );
+                                      },
+                                      child: Padding(
+                                        padding: const EdgeInsets.fromLTRB(
+                                            Dimensions.paddingSizeDefault,
+                                            0,
+                                            Dimensions.paddingSizeDefault,
+                                            Dimensions.paddingSizeDefault),
+                                        child: Container(
+                                          decoration: BoxDecoration(
+                                              border: Border.all(
+                                                  width: 0.5,
+                                                  color: Colors.grey),
+                                              borderRadius:
+                                                  const BorderRadius.all(
+                                                      Radius.circular(10))),
+                                          child: Padding(
+                                            padding: const EdgeInsets.all(8.0),
+                                            child: Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment
+                                                        .spaceBetween,
+                                                children: [
+                                                  Row(
                                                     children: [
-                                                      Text(
-                                                        (cart.shippingList ==
-                                                                    null ||
-                                                                cart.chosenShippingList
-                                                                    .isEmpty ||
-                                                                cart.shippingList!
-                                                                    .isEmpty ||
-                                                                cart
-                                                                        .shippingList![
-                                                                            0]
-                                                                        .shippingMethodList ==
-                                                                    null ||
-                                                                cart
-                                                                        .shippingList![
-                                                                            0]
-                                                                        .shippingIndex ==
-                                                                    -1)
-                                                            ? ''
-                                                            : cart
-                                                                .shippingList![
-                                                                    0]
-                                                                .shippingMethodList![cart
-                                                                    .shippingList![
-                                                                        0]
-                                                                    .shippingIndex!]
-                                                                .title
-                                                                .toString(),
-                                                        style: titilliumSemiBold
-                                                            .copyWith(
-                                                                color: Theme.of(
-                                                                        context)
-                                                                    .hintColor),
-                                                        maxLines: 1,
-                                                        overflow: TextOverflow
-                                                            .ellipsis,
-                                                      ),
+                                                      SizedBox(
+                                                          width: 15,
+                                                          height: 15,
+                                                          child: Image.asset(
+                                                              Images.delivery,
+                                                              color: Theme.of(
+                                                                      context)
+                                                                  .textTheme
+                                                                  .bodyLarge
+                                                                  ?.color)),
                                                       const SizedBox(
                                                           width: Dimensions
                                                               .paddingSizeExtraSmall),
-                                                      Icon(
-                                                          Icons
-                                                              .keyboard_arrow_down,
-                                                          color: Theme.of(
-                                                                  context)
-                                                              .primaryColor),
-                                                    ]),
-                                              ]),
+                                                      Text(
+                                                        getTranslated(
+                                                            'choose_shipping',
+                                                            context)!,
+                                                        style: textRegular,
+                                                        overflow: TextOverflow
+                                                            .ellipsis,
+                                                        maxLines: 1,
+                                                      ),
+                                                    ],
+                                                  ),
+                                                  Row(
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment.end,
+                                                      children: [
+                                                        Text(
+                                                          (cart.shippingList ==
+                                                                      null ||
+                                                                  cart.chosenShippingList
+                                                                      .isEmpty ||
+                                                                  cart.shippingList!
+                                                                      .isEmpty ||
+                                                                  cart
+                                                                          .shippingList![
+                                                                              0]
+                                                                          .shippingMethodList ==
+                                                                      null ||
+                                                                  cart
+                                                                          .shippingList![
+                                                                              0]
+                                                                          .shippingIndex ==
+                                                                      -1)
+                                                              ? ''
+                                                              : cart
+                                                                  .shippingList![
+                                                                      0]
+                                                                  .shippingMethodList![cart
+                                                                      .shippingList![
+                                                                          0]
+                                                                      .shippingIndex!]
+                                                                  .title
+                                                                  .toString(),
+                                                          style: titilliumSemiBold
+                                                              .copyWith(
+                                                                  color: Theme.of(
+                                                                          context)
+                                                                      .hintColor),
+                                                          maxLines: 1,
+                                                          overflow: TextOverflow
+                                                              .ellipsis,
+                                                        ),
+                                                        const SizedBox(
+                                                            width: Dimensions
+                                                                .paddingSizeExtraSmall),
+                                                        Icon(
+                                                            Icons
+                                                                .keyboard_arrow_down,
+                                                            color: Theme.of(
+                                                                    context)
+                                                                .primaryColor),
+                                                      ]),
+                                                ]),
+                                          ),
                                         ),
                                       ),
-                                    ),
-                                  )
-                                : const SizedBox(),
+                                    )
+                                  : const SizedBox(),
+                            ],
+                          ),
+                        )
+                      : const Column(
+                          children: [
+                            NoInternetOrDataScreen(
+                              icon: Images.emptyCart,
+                              icCart: true,
+                              isNoInternet: false,
+                              message: 'no_product_in_cart',
+                            ),
                           ],
                         ),
-                      )
-                    : const Expanded(
-                        child: Column(
-                        children: [
-                          NoInternetOrDataScreen(
-                            icon: Images.emptyCart,
-                            icCart: true,
-                            isNoInternet: false,
-                            message: 'no_product_in_cart',
-                          ),
-                        ],
-                      )),
-          ]),
+            ]),
+          ),
         );
       });
     });

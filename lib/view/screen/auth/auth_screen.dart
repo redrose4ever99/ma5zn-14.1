@@ -48,18 +48,21 @@ class _AuthScreenState extends State<AuthScreen>
         return false;
       },
       child: Scaffold(
+        backgroundColor: Theme.of(context).canvasColor,
         body: Consumer<AuthProvider>(builder: (context, authProvider, _) {
           return SingleChildScrollView(
             child: Column(
               children: [
                 Stack(
                   children: [
-                    Container(
-                        height: 150,
-                        decoration: BoxDecoration(
-                            color: Theme.of(context)
-                                .primaryColor
-                                .withOpacity(.3))),
+                    Expanded(
+                      child: Container(
+                          height: 200,
+                          decoration: BoxDecoration(
+                              color: Theme.of(context)
+                                  .primaryColor
+                                  .withOpacity(.3))),
+                    ),
                     Padding(
                       padding: EdgeInsets.only(
                           top: MediaQuery.of(context).size.height * .05),
@@ -76,7 +79,7 @@ class _AuthScreenState extends State<AuthScreen>
                   transform: Matrix4.translationValues(0, -20, 0),
                   curve: Curves.fastOutSlowIn,
                   decoration: BoxDecoration(
-                      color: Theme.of(context).scaffoldBackgroundColor,
+                      color: Theme.of(context).canvasColor,
                       borderRadius: const BorderRadius.vertical(
                           top: Radius.circular(Dimensions.radiusExtraLarge))),
                   duration: const Duration(seconds: 2),

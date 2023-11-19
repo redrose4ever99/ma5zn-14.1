@@ -12,7 +12,10 @@ class Images {
   static const String logoWithNameImage = 'assets/images/logo_with_name.png';
   static const String logoWithNameImageWhite =
       'assets/images/logo_with_name_white.png';
+  //return-box
+  static const String returnBox = 'assets/images/return-box.png';
   static const String messageImage = 'assets/images/inbox.png';
+  static const String refundPolicy1 = 'assets/images/Refund_Policy1.png';
   static const String refund = 'assets/icons/refund.svg';
   static const String moreImage = 'assets/images/more.png';
   static const String shoppingImage = 'assets/images/order.png';

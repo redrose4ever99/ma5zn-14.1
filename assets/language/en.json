@@ -1,5 +1,6 @@
 {
     "ma5zn": "Ma5zn",
+    "signiture_msg":"Please touch the fingerprint sensor",
     "signiture_log_hint":"Or login via fingerprint",
     "choose_location":"Insert Delivery Location",
     "shop_by_category":"Shop By Category",
@@ -45,7 +46,7 @@
     "NEXT": "Next",
     "GET_STARTED": "Finish",
     "sign_in": "Sign In",
-    "login": "Login",
+    "LOGIN": "Login",
     "sign_up": "Sign Up",
     "remember": "Remember Me",
     "forget_password": "Forgot Password",

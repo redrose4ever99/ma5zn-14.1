@@ -14,6 +14,7 @@ class ShopCatWidgetHomePage extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: Dimensions.homePagePadding),
       child: Container(
+        height: 100,
         padding: const EdgeInsets.only(
             left: Dimensions.homePagePadding,
             right: Dimensions.homePagePadding),
