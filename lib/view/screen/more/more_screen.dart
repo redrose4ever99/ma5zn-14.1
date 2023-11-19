@@ -3,7 +3,6 @@ import 'package:com.makzan.eco/helper/price_converter.dart';
 import 'package:com.makzan.eco/provider/cart_provider.dart';
 import 'package:com.makzan.eco/provider/notification_provider.dart';
 import 'package:com.makzan.eco/provider/wallet_transaction_provider.dart';
-import 'package:com.makzan.eco/utill/app_constants.dart';
 import 'package:com.makzan.eco/view/basewidget/logout_confirm_bottom_sheet.dart';
 import 'package:com.makzan.eco/view/screen/auth/auth_screen.dart';
 import 'package:com.makzan.eco/view/screen/chat/inbox_screen.dart';

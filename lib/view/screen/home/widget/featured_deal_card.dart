@@ -115,7 +115,7 @@ class FeaturedDealCard extends StatelessWidget {
                             fontSize: Dimensions.fontSizeSmall,
                           )),
                     ]),
-                    const SizedBox(height: Dimensions.paddingSizeLarge),
+                    const SizedBox(height: Dimensions.paddingSizeDefault),
                     Text(
                       product.name!,
                       style: textRegular.copyWith(

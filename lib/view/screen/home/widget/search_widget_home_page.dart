@@ -1,11 +1,7 @@
-import 'package:com.makzan.eco/utill/images.dart';
-import 'package:com.makzan.eco/utill/size.dart';
 import 'package:flutter/material.dart';
 import 'package:com.makzan.eco/localization/language_constrants.dart';
-import 'package:com.makzan.eco/provider/theme_provider.dart';
 import 'package:com.makzan.eco/utill/custom_themes.dart';
 import 'package:com.makzan.eco/utill/dimensions.dart';
-import 'package:provider/provider.dart';
 
 class SearchWidgetHomePage extends StatelessWidget {
   const SearchWidgetHomePage({super.key});

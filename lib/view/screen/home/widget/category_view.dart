@@ -6,7 +6,6 @@ import 'package:com.makzan.eco/view/screen/home/widget/category_widget.dart';
 import 'package:com.makzan.eco/view/screen/product/brand_and_category_product_screen.dart';
 import 'package:provider/provider.dart';
 
-import '../shimmer/category_shimmer.dart';
 
 class CategoryView extends StatelessWidget {
   final bool isHomePage;

@@ -9,21 +9,24 @@ import 'package:provider/provider.dart';
 class HtmlViewScreen extends StatelessWidget {
   final String? title;
   final String? url;
-  const HtmlViewScreen({Key? key, required this.url, required this.title}) : super(key: key);
+  const HtmlViewScreen({Key? key, required this.url, required this.title})
+      : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Scaffold(
- 
       body: Stack(
-
         children: [
-           Provider.of<ThemeProvider>(context).darkTheme
+          Provider.of<ThemeProvider>(context).darkTheme
               ? const SizedBox()
               : SizedBox(
                   width: double.infinity,
                   height: double.infinity,
                   child: Image.asset(Images.background, fit: BoxFit.fill),
                 ),
+          Container(
+              width: double.infinity,
+              height: double.infinity,
+              color: Theme.of(context).primaryColor.withOpacity(.2)),
           Column(
             children: [
               CustomAppBar(title: title),
@@ -32,9 +35,7 @@ class HtmlViewScreen extends StatelessWidget {
                   padding: const EdgeInsets.all(Dimensions.paddingSizeSmall),
                   physics: const BouncingScrollPhysics(),
                   child: Html(
-                    style: {
-                      'html': Style(textAlign: TextAlign.justify)
-                    },
+                    style: {'html': Style(textAlign: TextAlign.justify)},
                     data: url,
                   ),
                 ),

@@ -1,4 +1,3 @@
-import 'package:com.makzan.eco/utill/size.dart';
 import 'package:com.makzan.eco/view/screen/home/widget/location_widget_home_page.dart';
 import 'package:flutter/material.dart';
 import 'package:com.makzan.eco/provider/cart_provider.dart';

@@ -1,8 +1,6 @@
-import 'package:com.makzan.eco/provider/banner_provider.dart';
 import 'package:com.makzan.eco/utill/size.dart';
 import 'package:com.makzan.eco/view/basewidget/spener.dart';
 import 'package:com.makzan.eco/view/screen/home/widget/banners_view.dart';
-import 'package:com.makzan.eco/view/screen/home/widget/footer_banner.dart';
 import 'package:flutter/material.dart';
 import 'package:com.makzan.eco/data/model/response/category.dart';
 import 'package:com.makzan.eco/localization/language_constrants.dart';
