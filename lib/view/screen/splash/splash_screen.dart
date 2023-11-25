@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:com.makzan.eco/provider/theme_provider.dart';
 import 'package:com.makzan.eco/view/screen/choose_language/choose_language.dart';
 import 'package:com.makzan.eco/view/screen/started/started_screen.dart';
 import 'package:connectivity/connectivity.dart';
@@ -25,7 +26,13 @@ class SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     super.initState();
-    _controller = VideoPlayerController.asset('assets/video/intro.mp4')
+    String strUrl = "";
+    if (Provider.of<ThemeProvider>(context, listen: false).darkTheme) {
+      strUrl = 'assets/video/introdark.mp4';
+    } else {
+      strUrl = 'assets/video/intro.mp4';
+    }
+    _controller = VideoPlayerController.asset(strUrl)
       ..initialize().then((_) {
         setState(() {});
       })
@@ -121,7 +128,10 @@ class SplashScreenState extends State<SplashScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor:
+          Provider.of<ThemeProvider>(context, listen: false).darkTheme
+              ? Colors.black
+              : Colors.white,
       body: Provider.of<SplashProvider>(context).hasConnection
           ? Center(
               child: _controller.value.isInitialized

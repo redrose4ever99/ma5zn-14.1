@@ -89,6 +89,7 @@ flutter:
     - assets/icons/
     - assets/language/
     - assets/video/intro.mp4
+    - assets/video/introdark.mp4
 
   fonts:
     - family: SF-Pro-Rounded-Regular

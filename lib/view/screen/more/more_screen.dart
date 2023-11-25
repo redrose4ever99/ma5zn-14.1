@@ -152,7 +152,7 @@ class _MoreScreenState extends State<MoreScreen> {
                                 navigateTo: const CouponList()),
                             if (!isGuestMode)
                               Visibility(
-                                visible: false,
+                                visible: true,
                                 child: TitleButton(
                                     image: Images.refIcon,
                                     title: getTranslated(

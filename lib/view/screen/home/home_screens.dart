@@ -1,5 +1,4 @@
 import 'package:com.makzan.eco/provider/search_provider.dart';
-import 'package:com.makzan.eco/utill/size.dart';
 import 'package:com.makzan.eco/view/screen/category/all_category_screen.dart';
 import 'package:com.makzan.eco/view/screen/flashdeal/flash_deal_screen.dart';
 import 'package:com.makzan.eco/view/screen/home/widget/shopcat_widget_home_page.dart';

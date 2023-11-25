@@ -1,11 +1,11 @@
 import 'package:com.makzan.eco/utill/size.dart';
-import 'package:com.makzan.eco/view/basewidget/spener.dart';
+
+import 'package:com.makzan.eco/view/basewidget/spener_sq.dart';
 import 'package:flutter/material.dart';
 import 'package:com.makzan.eco/provider/category_provider.dart';
 import 'package:com.makzan.eco/view/screen/home/widget/category_widget.dart';
 import 'package:com.makzan.eco/view/screen/product/brand_and_category_product_screen.dart';
 import 'package:provider/provider.dart';
-
 
 class CategoryView extends StatelessWidget {
   final bool isHomePage;
@@ -46,7 +46,7 @@ class CategoryView extends StatelessWidget {
                   },
                 ),
               )
-            : const MySpener();
+            : const MySpeneSq();
       },
     );
   }

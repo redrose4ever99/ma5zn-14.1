@@ -20,7 +20,7 @@ import 'package:com.makzan.eco/view/screen/auth/forget_password_screen.dart';
 import 'package:com.makzan.eco/view/screen/auth/widget/mobile_verify_screen.dart';
 import 'package:com.makzan.eco/view/screen/auth/widget/social_login_widget.dart';
 import 'package:com.makzan.eco/view/screen/dashboard/dashboard_screen.dart';
-import 'package:flutter/services.dart';
+
 import 'package:local_auth/local_auth.dart';
 import 'package:provider/provider.dart';
 
@@ -330,23 +330,21 @@ class SignInWidgetState extends State<SignInWidget> {
   }
 
   Future<void> _authPrint() async {
-    try {
-      bool authenticated = await auth.authenticate(
-          localizedReason: getTranslated('signiture_msg', context)!,
-          options: const AuthenticationOptions(
-              stickyAuth: true, biometricOnly: true));
-      if (authenticated) {
-        Navigator.pushAndRemoveUntil(
-            Get.context!,
-            MaterialPageRoute(builder: (_) => const DashBoardScreen()),
-            (route) => false);
-      }
-    } on PlatformException catch (e) {}
+    bool authenticated = await auth.authenticate(
+        localizedReason: getTranslated('signiture_msg', context)!,
+        options:
+            const AuthenticationOptions(stickyAuth: true, biometricOnly: true));
+    if (authenticated) {
+      Navigator.pushAndRemoveUntil(
+          Get.context!,
+          MaterialPageRoute(builder: (_) => const DashBoardScreen()),
+          (route) => false);
+    }
+
+    // Future<void> _getAvailableBiometrics() async {
+    //   List<BiometricType> availableBeometric =
+    //       await auth.getAvailableBiometrics();
+
+    // }
   }
-
-  // Future<void> _getAvailableBiometrics() async {
-  //   List<BiometricType> availableBeometric =
-  //       await auth.getAvailableBiometrics();
-
-  // }
 }

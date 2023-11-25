@@ -1,3 +1,4 @@
+import 'package:com.makzan.eco/provider/theme_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:com.makzan.eco/localization/language_constrants.dart';
 import 'package:com.makzan.eco/provider/auth_provider.dart';
@@ -48,29 +49,33 @@ class _AuthScreenState extends State<AuthScreen>
         return false;
       },
       child: Scaffold(
-        backgroundColor: Theme.of(context).canvasColor,
         body: Consumer<AuthProvider>(builder: (context, authProvider, _) {
           return SingleChildScrollView(
             child: Column(
               children: [
                 Stack(
                   children: [
-                    Expanded(
-                      child: Container(
-                          height: 200,
-                          decoration: BoxDecoration(
-                              color: Theme.of(context)
-                                  .primaryColor
-                                  .withOpacity(.3))),
+                    Container(
+                      height: 200,
                     ),
+                    Image.asset(Images.loginBg,
+                        fit: BoxFit.cover,
+                        height: 200,
+                        opacity: const AlwaysStoppedAnimation(.15)),
                     Padding(
                       padding: EdgeInsets.only(
                           top: MediaQuery.of(context).size.height * .05),
                       child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Image.asset(Images.splashLogo,
-                                width: 130, height: 100)
+                            Image.asset(
+                                Provider.of<ThemeProvider>(context,
+                                            listen: false)
+                                        .darkTheme
+                                    ? Images.logoImageDark
+                                    : Images.splashLogo,
+                                width: 130,
+                                height: 100)
                           ]),
                     ),
                   ],
@@ -79,7 +84,7 @@ class _AuthScreenState extends State<AuthScreen>
                   transform: Matrix4.translationValues(0, -20, 0),
                   curve: Curves.fastOutSlowIn,
                   decoration: BoxDecoration(
-                      color: Theme.of(context).canvasColor,
+                      color: Theme.of(context).scaffoldBackgroundColor,
                       borderRadius: const BorderRadius.vertical(
                           top: Radius.circular(Dimensions.radiusExtraLarge))),
                   duration: const Duration(seconds: 2),

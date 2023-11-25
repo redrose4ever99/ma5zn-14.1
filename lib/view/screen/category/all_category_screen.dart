@@ -31,7 +31,7 @@ class AllCategoryScreen extends StatelessWidget {
                     margin: const EdgeInsets.only(top: 3),
                     height: double.infinity,
                     decoration: BoxDecoration(
-                      color: Theme.of(context).highlightColor,
+                      color: Theme.of(context).scaffoldBackgroundColor,
                       boxShadow: [
                         BoxShadow(
                             color: Colors.grey[
@@ -53,20 +53,27 @@ class AllCategoryScreen extends StatelessWidget {
                           onTap: () => Provider.of<CategoryProvider>(context,
                                   listen: false)
                               .changeSelectedIndex(index),
-                          child: Padding(
-                            padding: const EdgeInsets.only(
-                                left: 8, right: 8, top: 4, bottom: 4),
-                            child: Text(
-                              category.name!,
-                              maxLines: 2,
-                              overflow: TextOverflow.ellipsis,
-                              textAlign: TextAlign.center,
-                              style: titilliumSemiBold.copyWith(
-                                fontSize: Dimensions.fontSizeExtraSmall,
-                                color: categoryProvider.categorySelectedIndex ==
-                                        index
-                                    ? Theme.of(context).primaryColor
-                                    : Theme.of(context).hintColor,
+                          child: Container(
+                            color:
+                                categoryProvider.categorySelectedIndex == index
+                                    ? Theme.of(context).cardColor
+                                    : Theme.of(context).scaffoldBackgroundColor,
+                            child: Padding(
+                              padding:
+                                  const EdgeInsets.only(top: 10, bottom: 10),
+                              child: Text(
+                                category.name!,
+                                maxLines: 2,
+                                overflow: TextOverflow.ellipsis,
+                                textAlign: TextAlign.center,
+                                style: titilliumSemiBold.copyWith(
+                                  fontSize: Dimensions.fontSizeSmall,
+                                  color:
+                                      categoryProvider.categorySelectedIndex ==
+                                              index
+                                          ? Theme.of(context).primaryColor
+                                          : Theme.of(context).hintColor,
+                                ),
                               ),
                             ),
                           ),
